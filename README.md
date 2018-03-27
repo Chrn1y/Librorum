@@ -1,2 +1,2 @@
 # Librorum
-Артем Сушков 10ми5
+Artyom Sushkov 10MI5
