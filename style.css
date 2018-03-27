@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Padauk');
+
+h1{
+	font-family:Padauk;
+	color:white;
+	font-size:80px;
+	text-align: center;
+}
+
+body{
+	background-color:#222223;
+}
+
+.button{
+	width: 6em;
+	height:2em;
+	padding:15px 130px;
+	margin:20px 40px;
+	cursor:pointer;
+	display:inline-block;
+	color:#FFF;
+	font-size:1em;
+	border:1px solid #eee;
+	background:#222223;
+	border-radius:4px;
+	line-height:2em;
+	border:1px solid #aaa;
+	text-decoration:none;
+	text-align: center;
+	font-family:Padauk;
+		color:white;
+		font-size:18px;
+	-webkit-transition: all 0.3s linear;
+     -khtml-transition: all 0.3s linear;
+       -moz-transition: all 0.3s linear;
+         -o-transition: all 0.3s linear;
+            transition: all 0.3s linear;
+
+}
+
+.container {
+  	 display: flex;   
+     flex-direction: row;
+     justify-content: space-evenly;
+}
+
+#b1{
+display: flex;
+ flex-direction: column;
+}
+
+#b2{
+	display: flex;
+	flex-direction: column;
+}
+
+.book{
+	width:22em;
+	display:block; 
+	margin:0 auto;
+}
