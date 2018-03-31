@@ -12,10 +12,10 @@ body{
 }
 
 .button{
-	width: 6em;
-	height:2em;
-	padding:15px 130px;
-	margin:20px 40px;
+	width: 100px;
+	height:30px;
+	padding:7px 100px;
+	margin:10px 20px;
 	cursor:pointer;
 	display:inline-block;
 	color:#FFF;
@@ -39,23 +39,53 @@ body{
 }
 
 .container {
-  	 display: flex;   
+  	 display: flex;
      flex-direction: row;
-     justify-content: space-evenly;
+     justify-content: center;
 }
 
-#b1{
+.bookholder{
+	 display: flex;
+	 flex-direction: row;
+	 justify-content: space-around;	
+}
+
+.group{
 display: flex;
  flex-direction: column;
-}
-
-#b2{
-	display: flex;
-	flex-direction: column;
+ justify-content: space-evenly;
 }
 
 .book{
-	width:22em;
-	display:block; 
+	width:300px;
+	display:block;
 	margin:0 auto;
+}
+
+.svg-menu{
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 9999;
+}
+
+.svg-menu img {
+    width: 60px;
+    cursor: pointer;
+  }
+ a:hover{
+	cursor: default;
+ }
+ img:hover{
+	cursor: pointer;
+ }
+
+ .text{
+ 	font-family:Padauk;
+ 	color:#FFF;
+ }
+.srt{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
