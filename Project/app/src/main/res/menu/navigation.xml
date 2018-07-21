@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@android:drawable/ic_menu_sort_alphabetically"
+        android:state_checked="true"
+        android:title="Sorted" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@android:drawable/arrow_up_float"
+        android:title="Sort" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Recommended" />
+
+</menu>
