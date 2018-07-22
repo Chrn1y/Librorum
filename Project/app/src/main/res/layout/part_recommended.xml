@@ -19,12 +19,6 @@
             android:src="@drawable/ic_launcher_foreground" />
 
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textColor="#aaa" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
 import android.util.Log
 import com.dev.librorum.R
+import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
@@ -21,7 +22,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         const val TABLE_NAME = "BookTable"
         const val ID = "id"
         const val TITLE = "title"
-        const val COVER = "cover"
+        //const val COVER = "cover"
         const val GENRE = "genre"
         const val DESCRIPTION = "description"
         const val LIKE = "like"
@@ -30,7 +31,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TITLE TEXT, $COVER TEXT, $GENRE TEXT, $DESCRIPTION TEXT, $LIKE TEXT );"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TITLE TEXT, $GENRE TEXT, $DESCRIPTION TEXT, $LIKE TEXT );"
         currentDB!!.execSQL(sql1)
     }
 
@@ -53,7 +54,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
         val sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = TABLE_NAME
-        val cols = arrayOf(ID, TITLE, COVER, GENRE, DESCRIPTION, LIKE)
+        val cols = arrayOf(ID, TITLE,  GENRE, DESCRIPTION, LIKE)
         val selectArgs = arrayOf(key)
 
         val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, TITLE)
@@ -62,11 +63,11 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
             do {
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
                 val title = cursor.getString(cursor.getColumnIndex(TITLE))
-                val cover = cursor.getString(cursor.getColumnIndex(COVER))
+//                val cover = cursor.getString(cursor.getColumnIndex(COVER))
                 val genre = cursor.getString(cursor.getColumnIndex(GENRE))
                 val description = cursor.getString(cursor.getColumnIndex(DESCRIPTION))
                 val like = cursor.getString(cursor.getColumnIndex(LIKE))
-                resultList.add(BookData(id, title, cover, genre, description, like))
+                resultList.add(BookData(id, title, /*cover,*/ genre, description, like))
 
             } while (cursor.moveToNext())
         }
@@ -107,27 +108,34 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val usrDataList = db!!.listBooks("%")
-//            val inputStream = resources.openRawResource(R.raw.)
-//            val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-//                it.split(",")
-//            }
-//
-//            if (usrDataList.size == 0 ) {
-//                for (temp in usrDataList) {
-//                    db!!.removeBook(temp._id)
-//                }
-//
-//                val values = ContentValues()
-//                for (i in 1..(lines.size - 1)) {
-//
-//                    db!!.addBook(values)
-//                }
-//            }
+            val inputStream = resources.openRawResource(R.raw.test)
+            val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+                it.split(",")
+            }
+
+            if (usrDataList.size == 0 ) {
+                for (temp in usrDataList) {
+                    db!!.removeBook(temp._id)
+                }
+
+                val values = ContentValues()
+                for (i in 0..(lines.size - 1)) {
+                    values.put(DBHandler.TITLE, lines[i][0])
+                    values.put(DBHandler.GENRE, lines[i][1])
+                    values.put(DBHandler.DESCRIPTION, lines[i][2])
+
+                    db!!.addBook(values)
+                }
+            }
+            ctx.runOnUiThread {
+                listeners.forEach { it.value.onDbLoaded() }
+            }
+
 
         }
     }
 
     interface DbInteraction {
-        fun onDbLoad()
+        fun onDbLoaded()
     }
 }
