@@ -5,4 +5,5 @@ data class BookData(var _id: Int,
                     //var cover: String,
                     var genre: String,
                     var description: String,
-                    var like: String)
+                    var like: String,
+                    var read: String)

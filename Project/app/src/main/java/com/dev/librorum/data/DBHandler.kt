@@ -26,12 +26,13 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         const val GENRE = "genre"
         const val DESCRIPTION = "description"
         const val LIKE = "like"
+        const val READ = "read"
     }
 
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TITLE TEXT, $GENRE TEXT, $DESCRIPTION TEXT, $LIKE TEXT );"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TITLE TEXT, $GENRE TEXT, $DESCRIPTION TEXT, $LIKE TEXT, $READ TEXT);"
         currentDB!!.execSQL(sql1)
     }
 
@@ -54,7 +55,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
         val sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = TABLE_NAME
-        val cols = arrayOf(ID, TITLE,  GENRE, DESCRIPTION, LIKE)
+        val cols = arrayOf(ID, TITLE,  GENRE, DESCRIPTION, LIKE, READ)
         val selectArgs = arrayOf(key)
 
         val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, TITLE)
@@ -67,7 +68,8 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
                 val genre = cursor.getString(cursor.getColumnIndex(GENRE))
                 val description = cursor.getString(cursor.getColumnIndex(DESCRIPTION))
                 val like = cursor.getString(cursor.getColumnIndex(LIKE))
-                resultList.add(BookData(id, title, /*cover,*/ genre, description, like))
+                val read = cursor.getString(cursor.getColumnIndex(READ))
+                resultList.add(BookData(id, title, /*cover,*/ genre, description, like, read))
 
             } while (cursor.moveToNext())
         }
@@ -123,7 +125,8 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.TITLE, lines[i][0])
                     values.put(DBHandler.GENRE, lines[i][1])
                     values.put(DBHandler.DESCRIPTION, lines[i][2])
-
+                    values.put(DBHandler.LIKE, "NO")
+                    values.put(DBHandler.READ, "NO")
                     db!!.addBook(values)
                 }
             }

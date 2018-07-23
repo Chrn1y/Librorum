@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun onDbLoaded() {
-        Log.d("TAG", "db loaded")
+        Log.d("Librorum", "db loaded")
     }
 
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("TAG", "Main")
+        Log.d("Librorum", "Main")
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         sortFragment = SortFragment()
@@ -75,12 +75,12 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         })
-        Log.d("TAG", "Created")
+        Log.d("Librorum", "Created")
         doAsync {
             DBWrapper.registerCallback(this@MainActivity, "LoginActivity")
             DBWrapper.initDb(applicationContext, resources)
             db = DBWrapper.getInstance(this@MainActivity)
-            Log.d("db", "Successfully loaded db")
+            Log.d("Librorum", "Successfully loaded db")
         }
     }
 
