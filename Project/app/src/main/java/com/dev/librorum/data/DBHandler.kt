@@ -21,18 +21,21 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         const val DB_VERSION = 1
         const val TABLE_NAME = "BookTable"
         const val ID = "id"
-        const val TITLE = "title"
-        //const val COVER = "cover"
-        const val GENRE = "genre"
+        const val URL = "url"
+        const val CATEGORY = "categoryId"
+        const val PICTURE = "pic"
+        const val AUTHOR = "auth"
+        const val NAME = "name"
+        const val SERIES = "ser"
+        const val ISBN = "read"
+        const val LANGUAGE = "language"
         const val DESCRIPTION = "description"
-        const val LIKE = "like"
-        const val READ = "read"
     }
 
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TITLE TEXT, $GENRE TEXT, $DESCRIPTION TEXT, $LIKE TEXT, $READ TEXT);"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $URL TEXT, $CATEGORY TEXT, $PICTURE TEXT, $AUTHOR TEXT, $NAME TEXT, $SERIES TEXT, $ISBN TEXT, $LANGUAGE TEXT, $DESCRIPTION TEXT);"
         currentDB!!.execSQL(sql1)
     }
 
@@ -55,21 +58,25 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
         val sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = TABLE_NAME
-        val cols = arrayOf(ID, TITLE,  GENRE, DESCRIPTION, LIKE, READ)
+        val cols = arrayOf(ID, URL, CATEGORY, PICTURE, AUTHOR, NAME, SERIES, ISBN, LANGUAGE, DESCRIPTION)
         val selectArgs = arrayOf(key)
 
-        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, TITLE)
+        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, ID)
 
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(cursor.getColumnIndex(ID))
-                val title = cursor.getString(cursor.getColumnIndex(TITLE))
-//                val cover = cursor.getString(cursor.getColumnIndex(COVER))
-                val genre = cursor.getString(cursor.getColumnIndex(GENRE))
+                val url = cursor.getString(cursor.getColumnIndex(URL))
+                val category = cursor.getString(cursor.getColumnIndex(CATEGORY))
+                val picture = cursor.getString(cursor.getColumnIndex(PICTURE))
+                val author = cursor.getString(cursor.getColumnIndex(AUTHOR))
+                val name = cursor.getString(cursor.getColumnIndex(NAME))
+                val series = cursor.getString(cursor.getColumnIndex(SERIES))
+                val isbn = cursor.getString(cursor.getColumnIndex(ISBN))
+                val language = cursor.getString(cursor.getColumnIndex(LANGUAGE))
                 val description = cursor.getString(cursor.getColumnIndex(DESCRIPTION))
-                val like = cursor.getString(cursor.getColumnIndex(LIKE))
-                val read = cursor.getString(cursor.getColumnIndex(READ))
-                resultList.add(BookData(id, title, /*cover,*/ genre, description, like, read))
+
+                resultList.add(BookData(id, url, category, picture, author, name, series, isbn, language, description))
 
             } while (cursor.moveToNext())
         }
@@ -78,12 +85,12 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     }
 
     fun listBooks(key: String): ArrayList<BookData> {
-        return loadListFromDB(key, GENRE)
+        return loadListFromDB(key, ID)
     }
 
-    fun listLikes(key: String): ArrayList<BookData> {
-        return loadListFromDB(key, LIKE)
-    }
+//    fun listLikes(key: String): ArrayList<BookData> {
+//        return loadListFromDB(key, LIKE)
+//    }
 
 }
 
@@ -110,9 +117,9 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val usrDataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.test)
+            val inputStream = resources.openRawResource(R.raw.fant)
             val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                it.split(",")
+                it.split("|")
             }
 
             if (usrDataList.size == 0 ) {
@@ -122,11 +129,15 @@ class DBWrapper private constructor() {
 
                 val values = ContentValues()
                 for (i in 0..(lines.size - 1)) {
-                    values.put(DBHandler.TITLE, lines[i][0])
-                    values.put(DBHandler.GENRE, lines[i][1])
-                    values.put(DBHandler.DESCRIPTION, lines[i][2])
-                    values.put(DBHandler.LIKE, "NO")
-                    values.put(DBHandler.READ, "NO")
+                    values.put(DBHandler.URL, lines[i][0])
+                    values.put(DBHandler.CATEGORY, lines[i][1])
+                    values.put(DBHandler.PICTURE, lines[i][2])
+                    values.put(DBHandler.AUTHOR, lines[i][3])
+                    values.put(DBHandler.NAME, lines[i][4])
+                    values.put(DBHandler.SERIES, lines[i][5])
+                    values.put(DBHandler.ISBN, lines[i][6])
+                    values.put(DBHandler.LANGUAGE, lines[i][7])
+                    values.put(DBHandler.DESCRIPTION, lines[i][8])
                     db!!.addBook(values)
                 }
             }
