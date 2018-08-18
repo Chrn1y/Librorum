@@ -113,6 +113,13 @@ class DBWrapper private constructor() {
         }
 
         @JvmStatic
+        fun list(ctx: Context): ArrayList<BookData>{
+            getInstance(ctx)
+            val usrDataList = db!!.listBooks("%")
+            return usrDataList
+        }
+
+        @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
 
