@@ -20,26 +20,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        android:theme="@style/AppTheme"
-        app:itemIconTint="#222223"
-        app:itemTextColor="#222223"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation" />
+        android:id="@+id/sortbtn"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        android:text="Start"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sortedbtn"
+        app:layout_constraintTop_toBottomOf="@+id/sortbtn"
+        android:text="Check sorted"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/sortedbtn"
+        android:id="@+id/recombtn"
+        android:text="Check recommended"/>
+
 </android.support.constraint.ConstraintLayout>

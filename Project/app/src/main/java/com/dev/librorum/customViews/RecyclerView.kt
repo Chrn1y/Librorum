@@ -9,13 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.R
 import com.dev.librorum.data.BookData
+import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import org.jetbrains.anko.find
 
 
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
 
-    var db = DBWrapper.list(context)
+    private val db: DBHandler? = DBHandler(context)
+    val usrDataList = db!!.listBooks("%")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
@@ -24,7 +26,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     }
 
     override fun getItemCount(): Int {
-        return db.count()  
+        return usrDataList.count()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
