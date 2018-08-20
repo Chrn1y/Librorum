@@ -8,14 +8,15 @@ import com.dev.librorum.customViews.RecyclerRecommended
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_recommended.*
+import org.jetbrains.anko.doAsync
 
 class Recommended : AppCompatActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var adapter : RecyclerRecommended
-
-        val db: DBHandler? = DBHandler(this)
+        val db = DBWrapper.getInstance(this)
+//        val db: DBHandler? = DBHandler(this)
         val usrDataList = db!!.listBooks("%")
 
         super.onCreate(savedInstanceState)

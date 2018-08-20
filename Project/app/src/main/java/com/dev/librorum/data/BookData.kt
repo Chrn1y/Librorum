@@ -6,7 +6,6 @@ data class BookData(var _id: Int,
                     var picture: String,
                     var author: String,
                     var name: String,
-                    var series: String,
-                    var ISBN: String,
                     var language: String,
-                    var description: String)
+                    var description: String,
+                    var like: String)

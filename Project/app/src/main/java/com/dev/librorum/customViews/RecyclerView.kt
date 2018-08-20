@@ -11,12 +11,14 @@ import com.dev.librorum.R
 import com.dev.librorum.data.BookData
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find
+import org.jetbrains.anko.image
 
 
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
 
-    private val db: DBHandler? = DBHandler(context)
+    val db = DBWrapper.getInstance(context)
     val usrDataList = db!!.listBooks("%")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -34,11 +36,16 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-        val image = itemView?.findViewById<ImageView>(R.id.imageRecommended)
-        val text = itemView?.findViewById<TextView>(R.id.textRecommended)
+        val image = itemView?.findViewById<ImageView>(R.id.imagePart)
+        val text = itemView?.findViewById<TextView>(R.id.textPart)
 
         fun bindCategory(recommendation : BookData, context: Context ){
             text?.text = recommendation.name
+            Picasso.get()
+                    .load(recommendation.picture)
+                    .resize(290, 400)
+                    .centerCrop()
+                    .into(image)
         }
     }
 }

@@ -26,16 +26,15 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         const val PICTURE = "pic"
         const val AUTHOR = "auth"
         const val NAME = "name"
-        const val SERIES = "ser"
-        const val ISBN = "read"
         const val LANGUAGE = "language"
         const val DESCRIPTION = "description"
+        const val LIKE = "false"
     }
 
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $URL TEXT, $CATEGORY TEXT, $PICTURE TEXT, $AUTHOR TEXT, $NAME TEXT, $SERIES TEXT, $ISBN TEXT, $LANGUAGE TEXT, $DESCRIPTION TEXT);"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $URL TEXT, $CATEGORY TEXT, $PICTURE TEXT, $AUTHOR TEXT, $NAME TEXT,  $LANGUAGE TEXT, $DESCRIPTION TEXT, $LIKE TEXT);"
         currentDB!!.execSQL(sql1)
     }
 
@@ -58,7 +57,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
         val sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = TABLE_NAME
-        val cols = arrayOf(ID, URL, CATEGORY, PICTURE, AUTHOR, NAME, SERIES, ISBN, LANGUAGE, DESCRIPTION)
+        val cols = arrayOf(ID, URL, CATEGORY, PICTURE, AUTHOR, NAME, LANGUAGE, DESCRIPTION, LIKE)
         val selectArgs = arrayOf(key)
 
         val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, ID)
@@ -71,15 +70,14 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
                 val picture = cursor.getString(cursor.getColumnIndex(PICTURE))
                 val author = cursor.getString(cursor.getColumnIndex(AUTHOR))
                 val name = cursor.getString(cursor.getColumnIndex(NAME))
-                val series = cursor.getString(cursor.getColumnIndex(SERIES))
-                val isbn = cursor.getString(cursor.getColumnIndex(ISBN))
                 val language = cursor.getString(cursor.getColumnIndex(LANGUAGE))
                 val description = cursor.getString(cursor.getColumnIndex(DESCRIPTION))
-
-                resultList.add(BookData(id, url, category, picture, author, name, series, isbn, language, description))
+                val like = cursor.getString(cursor.getColumnIndex(LIKE))
+                resultList.add(BookData(id, url, category, picture, author, name, language, description, like ))
 
             } while (cursor.moveToNext())
         }
+        cursor.close()
         return resultList
 
     }
@@ -88,36 +86,31 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         return loadListFromDB(key, ID)
     }
 
-//    fun listLikes(key: String): ArrayList<BookData> {
-//        return loadListFromDB(key, LIKE)
-//    }
+    fun listLikes(key: String): ArrayList<BookData> {
+        return loadListFromDB("true", LIKE)
+    }
 
 }
 
 class DBWrapper private constructor() {
     companion object {
-        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
+//        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
         private var db: DBHandler? = null
 
         @JvmStatic
         fun getInstance(ctx: Context): DBHandler {
             if (db == null)
                 db = DBHandler(ctx)
+
             return db!!
         }
 
-        @JvmStatic
-        fun registerCallback(ctx: Context, key: String) {
-            listeners[key] = ctx as DbInteraction
+//        @JvmStatic
+//        fun registerCallback(ctx: Context, key: String) {
+//            listeners[key] = ctx as DbInteraction
+//
+//        }
 
-        }
-
-        @JvmStatic
-        fun list(ctx: Context): ArrayList<BookData>{
-            getInstance(ctx)
-            val usrDataList = db!!.listBooks("%")
-            return usrDataList
-        }
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
@@ -135,28 +128,25 @@ class DBWrapper private constructor() {
                 }
 
                 val values = ContentValues()
-                for (i in 0..(lines.size - 1)) {
+                for (i in 1..(lines.size - 1)) {
                     values.put(DBHandler.URL, lines[i][0])
                     values.put(DBHandler.CATEGORY, lines[i][1])
                     values.put(DBHandler.PICTURE, lines[i][2])
                     values.put(DBHandler.AUTHOR, lines[i][3])
                     values.put(DBHandler.NAME, lines[i][4])
-                    values.put(DBHandler.SERIES, lines[i][5])
-                    values.put(DBHandler.ISBN, lines[i][6])
-                    values.put(DBHandler.LANGUAGE, lines[i][7])
-                    values.put(DBHandler.DESCRIPTION, lines[i][8])
+                    values.put(DBHandler.LANGUAGE, lines[i][5])
+                    values.put(DBHandler.DESCRIPTION, lines[i][6])
+                    values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
             }
-            ctx.runOnUiThread {
-                listeners.forEach { it.value.onDbLoaded() }
-            }
-
-
+//            ctx.runOnUiThread {
+//                listeners.forEach { it.value.onDbLoaded() }
+//            }
         }
     }
 
-    interface DbInteraction {
-        fun onDbLoaded()
-    }
+//    interface DbInteraction {
+//        fun onDbLoaded()
+//    }
 }

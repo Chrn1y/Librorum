@@ -15,30 +15,38 @@ import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity(),DBWrapper.DbInteraction{
+class MainActivity : AppCompatActivity(){
     private lateinit var db: DBHandler
 
-
-    override fun onDbLoaded() {
-        Log.d("Librorum", "db loaded")
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         Log.d("Librorum", "Created")
         doAsync {
-            DBWrapper.registerCallback(this@MainActivity, "LoginActivity")
-            DBWrapper.initDb(applicationContext, resources)
-            db = DBWrapper.getInstance(this@MainActivity)
-            Log.d("Librorum", "Successfully loaded db")
-        }
+        DBWrapper.initDb(applicationContext, resources)
+//        db = DBWrapper.getInstance(this@MainActivity)
+//        Log.d("Librorum", "Successfully loaded db")
+//            db.close()
+    }
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
         buttonRecommend.setOnClickListener{
-            val intent = Intent (this, Recommended::class.java)
+
+                val intent = Intent(this, Recommended::class.java)
+                startActivity(intent)
+
+        }
+
+        val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+        buttonSorted.setOnClickListener{
+
+            val intent = Intent(this, Sorted::class.java)
             startActivity(intent)
+
         }
     }
 
