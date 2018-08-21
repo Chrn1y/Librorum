@@ -23,7 +23,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.part_recommended, parent, false)
+                .inflate(R.layout.part_element, parent, false)
                 return Holder(view)
     }
 
@@ -44,6 +44,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
             Picasso.get()
                     .load(recommendation.picture)
                     .resize(290, 400)
+                    //.fit()
                     .centerCrop()
                     .into(image)
         }
@@ -58,7 +59,7 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>) : R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
-                .inflate(R.layout.part_recommended, parent, false)
+                .inflate(R.layout.part_element, parent, false)
         return Holder(view)
     }
 
