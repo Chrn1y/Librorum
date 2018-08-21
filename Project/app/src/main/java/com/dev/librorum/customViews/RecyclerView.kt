@@ -16,7 +16,7 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.image
 
 
-class RecyclerRecommended(val context : Context, val recommended: List<BookData>) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
+class RecyclerRecommended(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
 
     val db = DBWrapper.getInstance(context)
     val usrDataList = db!!.listBooks("%")
@@ -24,7 +24,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.part_element, parent, false)
-                return Holder(view)
+                return Holder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -35,24 +35,25 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
         holder?.bindCategory(recommended[position], context)
     }
 
-    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View?, val itemClick: (BookData) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val image = itemView?.findViewById<ImageView>(R.id.imagePart)
         val text = itemView?.findViewById<TextView>(R.id.textPart)
 
-        fun bindCategory(recommendation : BookData, context: Context ){
-            text?.text = recommendation.name
+        fun bindCategory(book : BookData, context: Context ){
+            text?.text = book.name
             Picasso.get()
-                    .load(recommendation.picture)
+                    .load(book.picture)
                     .resize(290, 400)
                     //.fit()
                     .centerCrop()
                     .into(image)
+            itemView.setOnClickListener { itemClick(book) }
         }
     }
 }
 
 
-class RecyclerSorted(val context : Context, val recommended: List<BookData>) : RecyclerView.Adapter<RecyclerSorted.Holder>() {
+class RecyclerSorted(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerSorted.Holder>() {
 
     val db = DBWrapper.getInstance(context)
     val usrDataList = db!!.listLikes()
@@ -60,7 +61,7 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>) : R
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.part_element, parent, false)
-        return Holder(view)
+        return Holder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -71,17 +72,19 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>) : R
         holder?.bindCategory(recommended[position], context)
     }
 
-    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View?, val itemClick: (BookData) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val image = itemView?.findViewById<ImageView>(R.id.imagePart)
         val text = itemView?.findViewById<TextView>(R.id.textPart)
 
-        fun bindCategory(recommendation : BookData, context: Context ){
-            text?.text = recommendation.name
+        fun bindCategory(book : BookData, context: Context ){
+            text?.text = book.name
             Picasso.get()
-                    .load(recommendation.picture)
+                    .load(book.picture)
                     .resize(290, 400)
+                    //.fit()
                     .centerCrop()
                     .into(image)
+            itemView.setOnClickListener { itemClick(book) }
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.dev.librorum
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.customViews.RecyclerRecommended
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
@@ -22,7 +24,13 @@ class Recommended : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
 
-        adapter = RecyclerRecommended(this, usrDataList)
+        adapter = RecyclerRecommended(this, usrDataList) {bookData ->
+
+            val intent = Intent(this, BookInfo::class.java)
+            intent.putExtra(EXTRA_ID, bookData._id.toString())
+            startActivity(intent)
+
+        }
         RecommendedList.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)

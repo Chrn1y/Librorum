@@ -60,7 +60,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         val cols = arrayOf(ID, URL, CATEGORY, PICTURE, AUTHOR, NAME, LANGUAGE, DESCRIPTION, LIKE)
         val selectArgs = arrayOf(key)
 
-        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, ID)
+        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, NAME)
 
         if (cursor.moveToFirst()) {
             do {
@@ -89,6 +89,11 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     fun listLikes(): ArrayList<BookData> {
         return loadListFromDB("true", LIKE)
     }
+
+    fun findBook (key: String): ArrayList<BookData> {
+        return loadListFromDB(key, ID)
+    }
+
 
 }
 
