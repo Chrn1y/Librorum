@@ -86,7 +86,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         return loadListFromDB(key, ID)
     }
 
-    fun listLikes(key: String): ArrayList<BookData> {
+    fun listLikes(): ArrayList<BookData> {
         return loadListFromDB("true", LIKE)
     }
 

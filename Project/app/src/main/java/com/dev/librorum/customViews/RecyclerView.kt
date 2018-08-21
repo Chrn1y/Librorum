@@ -49,3 +49,38 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
         }
     }
 }
+
+
+class RecyclerSorted(val context : Context, val recommended: List<BookData>) : RecyclerView.Adapter<RecyclerSorted.Holder>() {
+
+    val db = DBWrapper.getInstance(context)
+    val usrDataList = db!!.listLikes()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        val view = LayoutInflater.from(parent?.context)
+                .inflate(R.layout.part_recommended, parent, false)
+        return Holder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return usrDataList.count()
+    }
+
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+        holder?.bindCategory(recommended[position], context)
+    }
+
+    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+        val image = itemView?.findViewById<ImageView>(R.id.imagePart)
+        val text = itemView?.findViewById<TextView>(R.id.textPart)
+
+        fun bindCategory(recommendation : BookData, context: Context ){
+            text?.text = recommendation.name
+            Picasso.get()
+                    .load(recommendation.picture)
+                    .resize(290, 400)
+                    .centerCrop()
+                    .into(image)
+        }
+    }
+}

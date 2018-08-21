@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.dev.librorum.customViews.RecyclerRecommended
+import com.dev.librorum.customViews.RecyclerSorted
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_recommended.*
+import kotlinx.android.synthetic.main.activity_sorted.*
 import org.jetbrains.anko.doAsync
 
 class Sorted : AppCompatActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var adapter : RecyclerRecommended
+        lateinit var adapter : RecyclerSorted
 
         val db = DBWrapper.getInstance(this)
         val usrDataList = db!!.listBooks("%")
@@ -23,13 +25,13 @@ class Sorted : AppCompatActivity(){
         setContentView(R.layout.activity_sorted)
 
 
-        adapter = RecyclerRecommended(this, usrDataList)
-        RecommendedList.adapter = adapter
+        adapter = RecyclerSorted(this, usrDataList)
+        SortedList.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)
 
-        RecommendedList.layoutManager = layoutManager
-        RecommendedList.setHasFixedSize(true)
+        SortedList.layoutManager = layoutManager
+        SortedList.setHasFixedSize(true)
 
     }
 }
