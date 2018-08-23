@@ -90,8 +90,8 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         return loadListFromDB("true", LIKE)
     }
 
-    fun findBook (key: String): ArrayList<BookData> {
-        return loadListFromDB(key, ID)
+    fun findBook (key: String): BookData {
+        return loadListFromDB(key, ID)[0]
     }
 
 
