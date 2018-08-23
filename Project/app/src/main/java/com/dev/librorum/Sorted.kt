@@ -41,4 +41,24 @@ class Sorted : AppCompatActivity(){
         SortedList.setHasFixedSize(true)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        lateinit var adapter : RecyclerSorted
+        val db = DBWrapper.getInstance(this)
+        val usrDataList = db!!.listLikes()
+        adapter = RecyclerSorted(this, usrDataList) {bookData ->
+
+            val intent = Intent(this, BookInfo::class.java)
+            intent.putExtra(EXTRA_ID, bookData._id.toString())
+            startActivity(intent)
+
+        }
+        SortedList.adapter = adapter
+
+        val layoutManager = LinearLayoutManager(this)
+
+        SortedList.layoutManager = layoutManager
+        SortedList.setHasFixedSize(true)
+    }
 }

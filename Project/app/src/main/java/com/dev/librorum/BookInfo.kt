@@ -1,5 +1,6 @@
 package com.dev.librorum
 
+import android.content.ContentValues
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -11,6 +12,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.Button
+import com.dev.librorum.data.DBHandler
 import org.jetbrains.anko.toast
 
 
@@ -22,6 +24,7 @@ class BookInfo : AppCompatActivity() {
         val db = DBWrapper.getInstance(this)
         val bookID = intent.getStringExtra(EXTRA_ID)
         val book =  db!!.listBooks(bookID)[0]
+        val values = ContentValues()
 
         val name = findViewById(R.id.nameInfo) as TextView
         name.text = book.name
@@ -41,13 +44,32 @@ class BookInfo : AppCompatActivity() {
                 .centerCrop()
                 .into(image)
 
-        val mIdButtonHome = findViewById(R.id.buttonInfo) as Button
+        val ButtonHome = findViewById(R.id.buttonInfo) as Button
+        val ButtonLike = findViewById(R.id.buttonLike) as Button
+        if (book.like == "false")
+            ButtonLike.text = "Добавить в список желаемого"
+        else
+            ButtonLike.text = "Убрать из списка желаемого"
 
-        mIdButtonHome.setOnClickListener(){
+
+        ButtonHome.setOnClickListener(){
             val browserIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse(book.url))
             startActivity(browserIntent)
+        }
+
+        ButtonLike.setOnClickListener(){
+            if (book.like == "false") {
+                values.put(DBHandler.LIKE, "true")
+                db.updateBook(values, book._id)
+                ButtonLike.text = "Убрать из списка желаемого"
+            }
+            else {
+                values.put(DBHandler.LIKE, "false")
+                db.updateBook(values, book._id)
+                ButtonLike.text = "Добавить в список желаемого"
+            }
         }
     }
 }

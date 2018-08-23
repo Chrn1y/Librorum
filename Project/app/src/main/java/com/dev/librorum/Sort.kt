@@ -24,7 +24,7 @@ class Sort : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sort)
         val db = DBWrapper.getInstance(this)
-        var usrDataList = db!!.listBooks("%")
+        val usrDataList = db!!.listBooks("%")
         val number = usrDataList.size
         var id = (0..number).random().toString()
         var book =  db!!.findBook(id)
