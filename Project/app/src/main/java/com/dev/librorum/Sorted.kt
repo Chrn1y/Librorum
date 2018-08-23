@@ -16,7 +16,6 @@ import org.jetbrains.anko.doAsync
 
 class Sorted : AppCompatActivity(){
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var adapter : RecyclerSorted
 
