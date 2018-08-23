@@ -25,7 +25,8 @@
         <activity android:name=".Recommended" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Sorted" />
-        <activity android:name=".BookInfo"></activity>
+        <activity android:name=".BookInfo" />
+        <activity android:name=".Sort"></activity>
     </application>
 
 </manifest>

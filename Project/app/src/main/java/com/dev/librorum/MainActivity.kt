@@ -48,6 +48,14 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
 
         }
+
+        val buttonStart = findViewById<Button>(R.id.sortbtn)
+        buttonStart.setOnClickListener{
+
+            val intent = Intent(this, Sort::class.java)
+            startActivity(intent)
+
+        }
     }
 
 }
