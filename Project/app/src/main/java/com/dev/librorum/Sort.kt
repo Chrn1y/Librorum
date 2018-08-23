@@ -7,13 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.toast
 import java.util.*
-
-
 
 class Sort : AppCompatActivity() {
 
@@ -29,7 +29,8 @@ class Sort : AppCompatActivity() {
         var id = (0..number).random().toString()
         var book =  db!!.findBook(id)
         val values = ContentValues()
-
+        val name = findViewById(R.id.nameSort) as TextView
+        name.text = book.name
 
         val image = findViewById(R.id.imageSort) as ImageView
         Picasso.get()
@@ -38,6 +39,13 @@ class Sort : AppCompatActivity() {
                 //.fit()
                 .centerCrop()
                 .into(image)
+
+        image.setOnClickListener {
+            val intent = Intent(this, BookInfo::class.java)
+            intent.putExtra(EXTRA_ID, book._id.toString())
+            startActivity(intent)
+        }
+
 
         val buttonLike = findViewById<Button>(R.id.likebtn)
         buttonLike.setOnClickListener{
@@ -65,6 +73,7 @@ class Sort : AppCompatActivity() {
                     //.fit()
                     .centerCrop()
                     .into(image)
+            name.text = book.name
         }
 
 
