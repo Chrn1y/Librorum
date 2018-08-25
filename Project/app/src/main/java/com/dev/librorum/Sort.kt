@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
+import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
@@ -30,8 +31,12 @@ class Sort : AppCompatActivity() {
         var book =  db!!.findBook(id)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
+
+//        val dbc = DBCWrapper.getInstance(this)
+//        val catDataList = dbc.listCategories("%")
         name.text = book.name
 
+//        toast(catDataList.size.toString())
         val image = findViewById(R.id.imageSort) as ImageView
         Picasso.get()
                 .load(book.picture)

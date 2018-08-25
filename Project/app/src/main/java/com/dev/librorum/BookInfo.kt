@@ -12,6 +12,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.Button
+import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import org.jetbrains.anko.toast
 
@@ -25,6 +26,8 @@ class BookInfo : AppCompatActivity() {
         val bookID = intent.getStringExtra(EXTRA_ID)
         val book =  db!!.listBooks(bookID)[0]
         val values = ContentValues()
+        val dbc = DBCWrapper.getInstance(this)
+        val test = dbc.listCategories("%")
 
         val name = findViewById(R.id.nameInfo) as TextView
         name.text = book.name

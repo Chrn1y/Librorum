@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.dev.librorum.customViews.SectionsPagerAdapter
+import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +29,11 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
         Log.d("Librorum", "Created")
         doAsync {
-        DBWrapper.initDb(applicationContext, resources)
+//            DBWrapper.initDb(applicationContext, resources)
+            DBCWrapper.initDb(applicationContext)
+//            val dbc = DBCWrapper.getInstance(this@MainActivity)
+//            val catDataList = dbc.listCategories("%")
+//            toast(catDataList.size)
 //        db = DBWrapper.getInstance(this@MainActivity)
 //        Log.d("Librorum", "Successfully loaded db")
 //            db.close()

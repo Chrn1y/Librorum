@@ -11,16 +11,16 @@ import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_recommended.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 
 class Recommended : AppCompatActivity(){
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         lateinit var adapter : RecyclerRecommended
         val db = DBWrapper.getInstance(this)
 //        val db: DBHandler? = DBHandler(this)
         val usrDataList = db!!.listBooks("%")
-
+        toast(usrDataList.size.toString())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
 

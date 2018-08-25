@@ -22,12 +22,13 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
         const val TABLE_NAME = "CategoryTable"
         const val ID = "id"
         const val TYPE = "type"
-        const val NUMBER = "0"
+        const val NUMBER = "number"
     }
 
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
+
         val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TYPE TEXT, $NUMBER TEXT);"
         currentDB!!.execSQL(sql1)
     }
@@ -84,14 +85,14 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
 class DBCWrapper private constructor() {
     companion object {
 //        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
-        private var db: DBCHandler? = null
+        private var dbc: DBCHandler? = null
 
         @JvmStatic
         fun getInstance(ctx: Context): DBCHandler {
-            if (db == null)
-                db = DBCHandler(ctx)
+            if (dbc == null)
+                dbc = DBCHandler(ctx)
 
-            return db!!
+            return dbc!!
         }
 
 //        @JvmStatic
@@ -102,26 +103,39 @@ class DBCWrapper private constructor() {
 
 
         @JvmStatic
-        fun initDb(ctx: Context, resources: Resources) {
+        fun initDb(ctx: Context/*, resources: Resources*/) {
             getInstance(ctx)
-
-            val usrDataList = db!!.listCategories("%")
-            val inputStream = resources.openRawResource(R.raw.fant)
-            val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                it.split("|")
+            val db = DBWrapper.getInstance(ctx)
+            val dataList = dbc!!.listCategories("%")
+//            val inputStream = resources.openRawResource(R.raw.fant)
+//            val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+//                it.split("|")
+//            }
+            val data = db.listBooks("%")
+            val uniqueList = data.distinctBy { it.categoryId }
+            val categoryList = mutableListOf<String>()
+            uniqueList.forEach{
+                categoryList += it.categoryId
+                Log.d("Librorum", it.categoryId)
             }
+            if (dataList.size == 0 ) {
+                for (temp in dataList) {
+                    dbc!!.removeCategory(temp._id)
+                }
+                val values = ContentValues()
+                categoryList.forEach {
+                    values.put(DBCHandler.TYPE, it)
+                    values.put(DBCHandler.NUMBER, "0")
 
-            if (usrDataList.size == 0 ) {
-                for (temp in usrDataList) {
-                    db!!.removeCategory(temp._id)
+                    dbc!!.addCategory(values)
                 }
 
-                val values = ContentValues()
 //                fill in the base
             }
 //            ctx.runOnUiThread {
 //                listeners.forEach { it.value.onDbLoaded() }
 //            }
+            Log.d("Librorum", "Successfully loaded db")
         }
     }
 

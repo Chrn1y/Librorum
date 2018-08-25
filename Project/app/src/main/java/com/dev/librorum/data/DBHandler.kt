@@ -1,7 +1,6 @@
 package com.dev.librorum.data
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
@@ -12,7 +11,7 @@ import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.util.*
+import kotlin.collections.ArrayList
 
 class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
@@ -82,6 +81,19 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
     }
 
+//    fun listCategories(): List<String>{
+//    val list = loadListFromDB("%", ID)
+//        val unique = list.distinctBy{it.categoryId}
+//        Log.d("Librorum", unique.size.toString())
+//        val cat = ArrayList<String>()
+//        for(i in 0..(unique.size-1)){
+//            cat.add(unique[i].categoryId)
+//        }
+//        Log.d("Librorum", cat.size.toString())
+//        return cat
+//
+//    }
+
     fun listBooks(key: String): ArrayList<BookData> {
         return loadListFromDB(key, ID)
     }
@@ -99,7 +111,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
 class DBWrapper private constructor() {
     companion object {
-//        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
+        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
         private var db: DBHandler? = null
 
         @JvmStatic
@@ -110,25 +122,25 @@ class DBWrapper private constructor() {
             return db!!
         }
 
-//        @JvmStatic
-//        fun registerCallback(ctx: Context, key: String) {
-//            listeners[key] = ctx as DbInteraction
-//
-//        }
+        @JvmStatic
+        fun registerCallback(ctx: Context, key: String) {
+            listeners[key] = ctx as DbInteraction
+
+        }
 
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
 
-            val usrDataList = db!!.listBooks("%")
+            val dataList = db!!.listBooks("%")
             val inputStream = resources.openRawResource(R.raw.fant)
             val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
                 it.split("|")
             }
 
-            if (usrDataList.size == 0 ) {
-                for (temp in usrDataList) {
+            if (dataList.size == 0 ) {
+                for (temp in dataList) {
                     db!!.removeBook(temp._id)
                 }
 
@@ -144,14 +156,18 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
+//                Log.d("Librorum", "first db")
+//                DBCWrapper.initDb(ctx)
+
             }
-//            ctx.runOnUiThread {
-//                listeners.forEach { it.value.onDbLoaded() }
-//            }
+            ctx.runOnUiThread {
+                listeners.forEach { it.value.onDbLoaded() }
+            }
+
         }
     }
 
-//    interface DbInteraction {
-//        fun onDbLoaded()
-//    }
+    interface DbInteraction {
+        fun onDbLoaded()
+    }
 }
