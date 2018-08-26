@@ -152,21 +152,21 @@ class DBWrapper private constructor() {
                 var line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
                     it.split("|")
                 }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.second)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.third)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.fourth)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
+//                getByLines(line)
+//                inputStream = resources.openRawResource(R.raw.second)
+//                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+//                    it.split("|")
+//                }
+//                getByLines(line)
+//                inputStream = resources.openRawResource(R.raw.third)
+//                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+//                    it.split("|")
+//                }
+//                getByLines(line)
+//                inputStream = resources.openRawResource(R.raw.fourth)
+//                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+//                    it.split("|")
+//                }
 //                Log.d("Librorum", line.size.toString())
                 getByLines(line)
 
