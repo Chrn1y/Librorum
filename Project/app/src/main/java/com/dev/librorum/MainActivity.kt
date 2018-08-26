@@ -21,8 +21,6 @@ import org.jetbrains.anko.toast
 class MainActivity : AppCompatActivity(){
     private lateinit var db: DBHandler
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
