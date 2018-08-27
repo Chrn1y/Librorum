@@ -25,7 +25,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="Librorum"
         android:textColor="#FFF"
-        android:textSize="32sp"
-        android:fontFamily="@font/orbitron_medium"/>
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:fontFamily="@font/pressstart_regular"/>
 
 </android.support.constraint.ConstraintLayout>

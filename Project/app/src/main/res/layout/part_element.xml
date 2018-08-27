@@ -38,5 +38,5 @@
         app:layout_constraintVertical_bias="0.0"
         android:textSize="14sp"
         tools:text="Example"
-        android:fontFamily="@font/cuprum_regular"/>
+        android:fontFamily="@font/pressstart_regular"/>
 </android.support.constraint.ConstraintLayout>

@@ -47,12 +47,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image"
                 app:layout_constraintVertical_bias="0.235"
-                android:fontFamily="@font/cuprum_regular"/>
+                android:fontFamily="@font/orbitron_regular"/>
 
             <TextView
                 android:id="@+id/author"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
@@ -66,7 +65,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameInfo"
                 app:layout_constraintVertical_bias="0.141"
-                android:fontFamily="@font/cuprum_regular"/>
+                android:fontFamily="@font/orbitron_regular"/>
 
             <TextView
                 android:id="@+id/descr"
@@ -82,7 +81,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/author"
-                android:fontFamily="@font/cuprum_regular"/>
+                android:fontFamily="@font/orbitron_regular"/>
 
             <Button
                 android:id="@+id/buttonInfo"
@@ -98,7 +97,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descr"
                 android:background="#4e4e4f"
-                android:fontFamily="@font/cuprum_regular"
+                android:fontFamily="@font/pressstart_regular"
                 android:textColor="#FFF"
 
                 />
@@ -118,7 +117,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonInfo"
                 android:background="#4e4e4f"
-                android:fontFamily="@font/cuprum_regular"
+                android:fontFamily="@font/pressstart_regular"
                 android:textColor="#FFF"
 
                 />
