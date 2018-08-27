@@ -79,6 +79,9 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
         return loadListFromDB(key, ID)[0]
     }
 
+    fun categoryId (key: String): Int{
+        return loadListFromDB(key, TYPE)[0]._id
+    }
 
 }
 

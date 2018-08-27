@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
+import com.dev.librorum.data.DBCHandler
 import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
@@ -25,13 +26,15 @@ class Sort : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sort)
         val db = DBWrapper.getInstance(this)
-        val usrDataList = db!!.listBooks("%")
-        val number = usrDataList.size
+        val dbc = DBCWrapper.getInstance(this)
+        val dataList = db!!.listBooks("%")
+        var categoriesList = dbc.listCategories("%")
+        val number = dataList.size
         var id = (0..number).random().toString()
         var book =  db!!.findBook(id)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
-
+        
 //        val dbc = DBCWrapper.getInstance(this)
 //        val catDataList = dbc.listCategories("%")
         name.text = book.name
@@ -49,7 +52,6 @@ class Sort : AppCompatActivity() {
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, book._id.toString())
             startActivity(intent)
-
         }
 
         image.setOnClickListener {
@@ -58,10 +60,27 @@ class Sort : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        var sum  = 0.0
         val buttonLike = findViewById<Button>(R.id.likebtn)
         buttonLike.setOnClickListener{
 //            algorithm
+            categoriesList = dbc.listCategories("%")
+            categoriesList.forEach {
+                sum += it.number.toLong()
+            }
+            val values = ContentValues()
+            values.put(DBCHandler.NUMBER, ((sum/2)+1).toString())
+            dbc.updateCategory(values,dbc.categoryId(book.categoryId))
+
+            id = (0..number).random().toString()
+            book =  db!!.findBook(id)
+            Picasso.get()
+                    .load(book.picture)
+                    .resize(580, 800)
+                    //.fit()
+                    .centerCrop()
+                    .into(image)
+            name.text = book.name
 
         }
 
