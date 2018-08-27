@@ -16,6 +16,7 @@ import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.toast
 import java.util.*
+import kotlin.math.absoluteValue
 
 class Sort : AppCompatActivity() {
 
@@ -66,7 +67,7 @@ class Sort : AppCompatActivity() {
 //            algorithm
             categoriesList = dbc.listCategories("%")
             categoriesList.forEach {
-                sum += it.number.toLong()
+                sum += it.number.toLong().absoluteValue
             }
             val values = ContentValues()
             values.put(DBCHandler.NUMBER, ((sum/2)+1).toString())
@@ -87,6 +88,23 @@ class Sort : AppCompatActivity() {
         val buttonDislike = findViewById<Button>(R.id.dislikebtn)
         buttonDislike.setOnClickListener{
 //            algorithm
+            categoriesList = dbc.listCategories("%")
+            categoriesList.forEach {
+                sum += it.number.toLong().absoluteValue
+            }
+            val values = ContentValues()
+            values.put(DBCHandler.NUMBER, (-(sum/2)-1).toString())
+            dbc.updateCategory(values,dbc.categoryId(book.categoryId))
+
+            id = (0..number).random().toString()
+            book =  db!!.findBook(id)
+            Picasso.get()
+                    .load(book.picture)
+                    .resize(580, 800)
+                    //.fit()
+                    .centerCrop()
+                    .into(image)
+            name.text = book.name
 
         }
 
