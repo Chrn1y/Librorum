@@ -45,6 +45,13 @@ class Sort : AppCompatActivity() {
                 .centerCrop()
                 .into(image)
 
+        name.setOnClickListener {
+            val intent = Intent(this, BookInfo::class.java)
+            intent.putExtra(EXTRA_ID, book._id.toString())
+            startActivity(intent)
+
+        }
+
         image.setOnClickListener {
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, book._id.toString())
