@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.R
 import com.dev.librorum.data.BookData
+import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
@@ -19,7 +20,8 @@ import org.jetbrains.anko.image
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
 
     val db = DBWrapper.getInstance(context)
-    val usrDataList = db!!.listBooks("%")
+    val dbc = DBCWrapper.getInstance(context)
+    val dataList = db!!.getLargestCat(dbc)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
@@ -28,7 +30,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     }
 
     override fun getItemCount(): Int {
-        return usrDataList.count()
+        return dataList.count()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -56,7 +58,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
 class RecyclerSorted(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerSorted.Holder>() {
 
     val db = DBWrapper.getInstance(context)
-    val usrDataList = db!!.listLikes()
+    val dataList = db!!.listLikes()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context)
@@ -65,7 +67,7 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>, val
     }
 
     override fun getItemCount(): Int {
-        return usrDataList.count()
+        return dataList.count()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

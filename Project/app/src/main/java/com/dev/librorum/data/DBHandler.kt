@@ -106,7 +106,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
     fun getLargestCat(dbc : DBCHandler) : ArrayList<BookData>{
         var categories = dbc.listCategories("%")
-        val biggest = categories.maxBy { it -> it.number.toLong() }
+        val biggest = categories.maxBy { it -> it.number.toDouble() }
         val category = biggest!!.type
         return loadListFromDB(category, CATEGORY)
     }

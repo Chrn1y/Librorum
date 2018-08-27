@@ -20,12 +20,12 @@ class Sorted : AppCompatActivity(){
         lateinit var adapter : RecyclerSorted
 
         val db = DBWrapper.getInstance(this)
-        val usrDataList = db!!.listLikes()
+        val dataList = db!!.listLikes()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sorted)
 
-        adapter = RecyclerSorted(this, usrDataList) {bookData ->
+        adapter = RecyclerSorted(this, dataList) {bookData ->
 
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, bookData._id.toString())
@@ -45,8 +45,8 @@ class Sorted : AppCompatActivity(){
         super.onResume()
         lateinit var adapter : RecyclerSorted
         val db = DBWrapper.getInstance(this)
-        val usrDataList = db!!.listLikes()
-        adapter = RecyclerSorted(this, usrDataList) {bookData ->
+        val dataList = db!!.listLikes()
+        adapter = RecyclerSorted(this, dataList) {bookData ->
 
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, bookData._id.toString())

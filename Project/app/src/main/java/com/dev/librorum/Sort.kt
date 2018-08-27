@@ -67,7 +67,7 @@ class Sort : AppCompatActivity() {
 //            algorithm
             categoriesList = dbc.listCategories("%")
             categoriesList.forEach {
-                sum += it.number.toLong().absoluteValue
+                sum += it.number.toDouble().absoluteValue
             }
             val values = ContentValues()
             values.put(DBCHandler.NUMBER, ((sum/2)+1).toString())
@@ -90,7 +90,7 @@ class Sort : AppCompatActivity() {
 //            algorithm
             categoriesList = dbc.listCategories("%")
             categoriesList.forEach {
-                sum += it.number.toLong().absoluteValue
+                sum += it.number.toDouble().absoluteValue
             }
             val values = ContentValues()
             values.put(DBCHandler.NUMBER, (-(sum/2)-1).toString())
