@@ -49,10 +49,16 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
+        val prefs = Prefs(this)
+        if(prefs.firstTime() != true)
+            startActivity(Intent(this@Loading, MainActivity::class.java))
+
         val inputStream = resources.openRawResource(R.raw.loading)
         val line = BufferedReader(InputStreamReader(inputStream)).readLines()
         var number = 1
         val tap = findViewById<ConstraintLayout>(R.id.nextText)
+
+
 
         doAsync {
             DBWrapper.registerCallback(this@Loading, "Loading")
@@ -60,8 +66,11 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 //            db = DBWrapper.getInstance(this@Loading)
 
 
-            if (number >= line.size)
+            if (number >= line.size) {
+                prefs.notFirstTime()
                 startActivity(Intent(this@Loading, MainActivity::class.java))
+
+            }
         }
 
 
@@ -71,9 +80,10 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                 changename(line[number])
                 number++
             }
-            else if (flag == true)
-
+            else if (flag == true) {
+                prefs.notFirstTime()
                 startActivity(Intent(this@Loading, MainActivity::class.java))
+            }
         }
 
         Log.d("Librorum", line[1])

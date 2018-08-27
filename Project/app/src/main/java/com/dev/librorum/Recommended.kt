@@ -20,7 +20,7 @@ class Recommended : AppCompatActivity(){
         val db = DBWrapper.getInstance(this)
 //        val db: DBHandler? = DBHandler(this)
         val usrDataList = db!!.listBooks("%")
-        toast(usrDataList.size.toString())
+//        toast(usrDataList.size.toString())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
 
