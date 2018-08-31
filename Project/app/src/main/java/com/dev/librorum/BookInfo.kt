@@ -14,10 +14,15 @@ import android.view.View
 import android.widget.Button
 import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
 
 class BookInfo : AppCompatActivity() {
+
+    fun checkAndChange() : Unit{
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +30,6 @@ class BookInfo : AppCompatActivity() {
         val db = DBWrapper.getInstance(this)
         val bookID = intent.getStringExtra(EXTRA_ID)
         val book =  db!!.listBooks(bookID)[0]
-        val values = ContentValues()
         val dbc = DBCWrapper.getInstance(this)
         val test = dbc.listCategories("%")
 
@@ -55,6 +59,7 @@ class BookInfo : AppCompatActivity() {
             ButtonLike.text = "Убрать из списка желаемого"
 
 
+        val values = ContentValues()
         ButtonHome.setOnClickListener(){
             val browserIntent = Intent(
                     Intent.ACTION_VIEW,
@@ -62,17 +67,19 @@ class BookInfo : AppCompatActivity() {
             startActivity(browserIntent)
         }
 
-        ButtonLike.setOnClickListener(){
-            if (book.like == "false") {
-                values.put(DBHandler.LIKE, "true")
-                db.updateBook(values, book._id)
-                ButtonLike.text = "Убрать из списка желаемого"
+            ButtonLike.setOnClickListener() {
+                if (ButtonLike.text == "Добавить в список желаемого") {
+
+                    values.put(DBHandler.LIKE, "true")
+                    db.updateBook(values, book._id)
+                    ButtonLike.text = "Убрать из списка желаемого"
+                } else {
+
+                    values.put(DBHandler.LIKE, "false")
+                    db.updateBook(values, book._id)
+                    ButtonLike.text = "Добавить в список желаемого"
+                }
             }
-            else {
-                values.put(DBHandler.LIKE, "false")
-                db.updateBook(values, book._id)
-                ButtonLike.text = "Добавить в список желаемого"
-            }
-        }
+
     }
 }

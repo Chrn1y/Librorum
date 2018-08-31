@@ -138,7 +138,7 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val dataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.fant)
+            val inputStream = resources.openRawResource(R.raw.first)
             val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
                 it.split("|")
             }
@@ -156,7 +156,6 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
-
 
             }
             ctx.runOnUiThread {
