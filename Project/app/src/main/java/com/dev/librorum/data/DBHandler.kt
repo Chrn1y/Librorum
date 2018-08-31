@@ -105,12 +105,11 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     }
 
     fun getLargestCat(dbc : DBCHandler) : ArrayList<BookData>{
-        var categories = dbc.listCategories("%")
+        val categories = dbc.listCategories("%")
         val biggest = categories.maxBy { it -> it.number.toDouble() }
         val category = biggest!!.type
         return loadListFromDB(category, CATEGORY)
     }
-
 
 }
 
@@ -138,44 +137,26 @@ class DBWrapper private constructor() {
         fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
 
-            fun getByLines (lines: List<List<String>>) : Unit{
+            val dataList = db!!.listBooks("%")
+            val inputStream = resources.openRawResource(R.raw.fant)
+            val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+                it.split("|")
+            }
+
+            if (dataList.size == 0 || dataList.size < line.size) {
+                val number = dataList.size
                 val values = ContentValues()
-                for (i in 1..(lines.size - 1)) {
-                    values.put(DBHandler.URL, lines[i][0])
-                    values.put(DBHandler.CATEGORY, lines[i][1])
-                    values.put(DBHandler.PICTURE, lines[i][2])
-                    values.put(DBHandler.AUTHOR, lines[i][3])
-                    values.put(DBHandler.NAME, lines[i][4])
-                    values.put(DBHandler.DESCRIPTION, lines[i][5])
+                for (i in 1..(line.size - 1)) {
+                    values.put(DBHandler.URL, line[i][0])
+                    values.put(DBHandler.CATEGORY, line[i][1])
+                    values.put(DBHandler.PICTURE, line[i][2])
+                    values.put(DBHandler.AUTHOR, line[i][3])
+                    values.put(DBHandler.NAME, line[i][4])
+                    values.put(DBHandler.DESCRIPTION, line[i][5])
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
-            }
-            val dataList = db!!.listBooks("%")
 
-
-            if (dataList.size == 0 ) {
-                var inputStream = resources.openRawResource(R.raw.first)
-                var line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.second)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.third)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                getByLines(line)
-                inputStream = resources.openRawResource(R.raw.fourth)
-                line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                    it.split("|")
-                }
-                Log.d("Librorum", line.size.toString())
-                getByLines(line)
 
             }
             ctx.runOnUiThread {
