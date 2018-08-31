@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
 import android.util.Log
+import com.dev.librorum.Prefs
 import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
@@ -139,12 +140,14 @@ class DBWrapper private constructor() {
 
             val dataList = db!!.listBooks("%")
             val inputStream = resources.openRawResource(R.raw.first)
-            val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-                it.split("|")
-            }
 
-            if (dataList.size == 0 || dataList.size < line.size) {
-                val number = dataList.size
+            val prefs = Prefs(ctx)
+
+            if (dataList.size == 0 || dataList.size < prefs.bookNumber()) {
+                val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+                    it.split("|")
+                }
+                prefs.setBookNumber(line.size)
                 val values = ContentValues()
                 for (i in 1..(line.size - 1)) {
                     values.put(DBHandler.URL, line[i][0])
