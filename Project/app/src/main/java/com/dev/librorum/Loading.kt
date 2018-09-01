@@ -95,5 +95,4 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
     }
 
 
-
 }

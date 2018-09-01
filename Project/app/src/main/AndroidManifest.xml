@@ -26,7 +26,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Sorted" />
         <activity android:name=".BookInfo" />
-        <activity android:name=".Sort"></activity>
+        <activity android:name=".Sort"/>
     </application>
 
 </manifest>

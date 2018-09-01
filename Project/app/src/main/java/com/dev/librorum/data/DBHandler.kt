@@ -139,11 +139,12 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val dataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.first)
+            val inputStream = resources.openRawResource(R.raw.fant)
 
             val prefs = Prefs(ctx)
 
             if (dataList.size == 0 || dataList.size < prefs.bookNumber()) {
+
                 val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
                     it.split("|")
                 }
