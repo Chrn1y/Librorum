@@ -21,7 +21,7 @@ class Recommended : AppCompatActivity(){
         lateinit var adapter : RecyclerRecommended
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
-        val dataList = db!!.getLargestCat(dbc)
+        val dataList = db.getLargestCat(dbc)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended)
 

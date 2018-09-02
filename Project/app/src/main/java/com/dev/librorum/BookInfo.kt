@@ -30,7 +30,7 @@ class BookInfo : AppCompatActivity() {
         setContentView(R.layout.activity_book_info)
         val db = DBWrapper.getInstance(this)
         val bookID = intent.getStringExtra(EXTRA_ID)
-        val book =  db!!.listBooks(bookID)[0]
+        val book =  db.listBooks(bookID)[0]
         val dbc = DBCWrapper.getInstance(this)
         val test = dbc.listCategories("%")
 

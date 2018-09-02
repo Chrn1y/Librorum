@@ -6,8 +6,7 @@ import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
-import android.util.Log
-import com.dev.librorum.Prefs
+import com.dev.librorum.Utils.Prefs
 import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
@@ -80,18 +79,6 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
 
     }
 
-//    fun listCategories(): List<String>{
-//    val list = loadListFromDB("%", ID)
-//        val unique = list.distinctBy{it.categoryId}
-//        Log.d("Librorum", unique.size.toString())
-//        val cat = ArrayList<String>()
-//        for(i in 0..(unique.size-1)){
-//            cat.add(unique[i].categoryId)
-//        }
-//        Log.d("Librorum", cat.size.toString())
-//        return cat
-//
-//    }
 
     fun listBooks(key: String): ArrayList<BookData> {
         return loadListFromDB(key, ID)

@@ -110,10 +110,6 @@ class DBCWrapper private constructor() {
             getInstance(ctx)
             val db = DBWrapper.getInstance(ctx)
             val dataList = dbc!!.listCategories("%")
-//            val inputStream = resources.openRawResource(R.raw.fant)
-//            val lines = BufferedReader(InputStreamReader(inputStream)).readLines().map {
-//                it.split("|")
-//            }
             val data = db.listBooks("%")
             val uniqueList = data.distinctBy { it.categoryId }
             val categoryList = mutableListOf<String>()
@@ -133,7 +129,6 @@ class DBCWrapper private constructor() {
                     dbc!!.addCategory(values)
                 }
 
-//                fill in the base
             }
 //            ctx.runOnUiThread {
 //                listeners.forEach { it.value.onDbLoaded() }

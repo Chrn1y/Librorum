@@ -29,11 +29,11 @@ class Sort : AppCompatActivity() {
         setContentView(R.layout.activity_sort)
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
-        val dataList = db!!.listBooks("%")
+        val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
         val number = dataList.size
         var id = (0..number).random().toString()
-        var book =  db!!.findBook(id)
+        var book =  db.findBook(id)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
         
@@ -75,7 +75,7 @@ class Sort : AppCompatActivity() {
             dbc.updateCategory(values,dbc.categoryId(book.categoryId))
 
             id = (0..number).random().toString()
-            book =  db!!.findBook(id)
+            book =  db.findBook(id)
             Picasso.get()
                     .load(book.picture)
                     .resize(580, 800)
@@ -88,7 +88,6 @@ class Sort : AppCompatActivity() {
 
         val buttonDislike = findViewById<Button>(R.id.dislikebtn)
         buttonDislike.setOnClickListener{
-//            algorithm
             categoriesList = dbc.listCategories("%")
             categoriesList.forEach {
                 sum += it.number.toDouble().absoluteValue
@@ -116,7 +115,7 @@ class Sort : AppCompatActivity() {
             db.updateBook(values, book._id)
 
             id = (0..number).random().toString()
-            book =  db!!.findBook(id)
+            book =  db.findBook(id)
             Picasso.get()
                     .load(book.picture)
                     .resize(580, 800)

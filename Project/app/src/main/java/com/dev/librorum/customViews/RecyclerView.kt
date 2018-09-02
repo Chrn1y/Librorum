@@ -21,10 +21,10 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
 
     val db = DBWrapper.getInstance(context)
     val dbc = DBCWrapper.getInstance(context)
-    val dataList = db!!.getLargestCat(dbc)
+    val dataList = db.getLargestCat(dbc)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent?.context)
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.part_element, parent, false)
                 return Holder(view, itemClick)
     }
@@ -34,7 +34,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bindCategory(recommended[position], context)
+        holder.bindCategory(recommended[position], context)
     }
 
     inner class Holder(itemView: View?, val itemClick: (BookData) -> Unit) : RecyclerView.ViewHolder(itemView) {
@@ -58,10 +58,10 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
 class RecyclerSorted(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerSorted.Holder>() {
 
     val db = DBWrapper.getInstance(context)
-    val dataList = db!!.listLikes()
+    val dataList = db.listLikes()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent?.context)
+        val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.part_element, parent, false)
         return Holder(view, itemClick)
     }

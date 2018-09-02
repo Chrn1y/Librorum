@@ -20,23 +20,12 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
-    private lateinit var db: DBHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main)
 
-//        doAsync {
-////            DBWrapper.initDb(applicationContext, resources)
-//            DBCWrapper.initDb(applicationContext)
-////            val dbc = DBCWrapper.getInstance(this@MainActivity)
-////            val catDataList = dbc.listCategories("%")
-////            toast(catDataList.size)
-////        db = DBWrapper.getInstance(this@MainActivity)
-////        Log.d("Librorum", "Successfully loaded db")
-////            db.close()
-//    }
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
         buttonRecommend.setOnClickListener{
 

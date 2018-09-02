@@ -21,7 +21,7 @@ class Sorted : AppCompatActivity(){
         lateinit var adapter : RecyclerSorted
 
         val db = DBWrapper.getInstance(this)
-        val dataList = db!!.listLikes()
+        val dataList = db.listLikes()
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorted)
