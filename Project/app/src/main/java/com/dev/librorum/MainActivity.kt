@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import com.dev.librorum.customViews.SectionsPagerAdapter
 import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
