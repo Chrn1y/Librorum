@@ -3,6 +3,7 @@ package com.dev.librorum
 
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -24,7 +25,7 @@ class Sort : AppCompatActivity() {
             Random().nextInt((endInclusive + 1) - start) +  start
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort)
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)

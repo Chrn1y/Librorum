@@ -111,7 +111,6 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         val category = biggest!!.type
         return loadListFromDB(category, CATEGORY)
     }
-
 }
 
 class DBWrapper private constructor() {
@@ -160,7 +159,7 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
-
+                DBCWrapper.initDb(ctx)
             }
             ctx.runOnUiThread {
                 listeners.forEach { it.value.onDbLoaded() }

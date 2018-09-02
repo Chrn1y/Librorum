@@ -9,6 +9,7 @@ import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.view.View
 import android.widget.Button
@@ -25,7 +26,7 @@ class BookInfo : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_info)
         val db = DBWrapper.getInstance(this)
         val bookID = intent.getStringExtra(EXTRA_ID)

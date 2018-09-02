@@ -1,6 +1,7 @@
 package com.dev.librorum
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -22,7 +23,7 @@ class Sorted : AppCompatActivity(){
         val db = DBWrapper.getInstance(this)
         val dataList = db!!.listLikes()
 
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorted)
 
         adapter = RecyclerSorted(this, dataList) {bookData ->

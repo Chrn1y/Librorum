@@ -1,6 +1,7 @@
 package com.dev.librorum
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -21,7 +22,7 @@ class Recommended : AppCompatActivity(){
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db!!.getLargestCat(dbc)
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended)
 
         adapter = RecyclerRecommended(this, dataList) {bookData ->

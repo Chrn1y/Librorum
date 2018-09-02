@@ -1,6 +1,7 @@
 package com.dev.librorum
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -22,20 +23,20 @@ class MainActivity : AppCompatActivity(){
     private lateinit var db: DBHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main)
-        Log.d("Librorum", "Created")
-        doAsync {
-//            DBWrapper.initDb(applicationContext, resources)
-            DBCWrapper.initDb(applicationContext)
-//            val dbc = DBCWrapper.getInstance(this@MainActivity)
-//            val catDataList = dbc.listCategories("%")
-//            toast(catDataList.size)
-//        db = DBWrapper.getInstance(this@MainActivity)
-//        Log.d("Librorum", "Successfully loaded db")
-//            db.close()
-    }
+
+//        doAsync {
+////            DBWrapper.initDb(applicationContext, resources)
+//            DBCWrapper.initDb(applicationContext)
+////            val dbc = DBCWrapper.getInstance(this@MainActivity)
+////            val catDataList = dbc.listCategories("%")
+////            toast(catDataList.size)
+////        db = DBWrapper.getInstance(this@MainActivity)
+////        Log.d("Librorum", "Successfully loaded db")
+////            db.close()
+//    }
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
         buttonRecommend.setOnClickListener{
 

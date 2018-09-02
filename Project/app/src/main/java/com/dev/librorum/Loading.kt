@@ -1,6 +1,7 @@
 package com.dev.librorum
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -47,7 +48,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading)
         val prefs = Prefs(this)
 
@@ -64,6 +65,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         doAsync {
             DBWrapper.registerCallback(this@Loading, "Loading")
             DBWrapper.initDb(applicationContext, resources)
+
 //            db = DBWrapper.getInstance(this@Loading)
 
 
