@@ -109,20 +109,23 @@ class Sort : AppCompatActivity() {
         }
 
         val buttonAdd = findViewById<Button>(R.id.addbtn)
-        buttonAdd.setOnClickListener{
-            toast("Добавлено")
-            values.put(DBHandler.LIKE, "true")
-            db.updateBook(values, book._id)
+        if (book.like == "false")
+            buttonAdd.text = "Добавить в список желаемого"
+        else
+            buttonAdd.text = "Убрать из списка желаемого"
 
-            id = (0..number).random().toString()
-            book =  db.findBook(id)
-            Picasso.get()
-                    .load(book.picture)
-                    .resize(580, 800)
-                    //.fit()
-                    .centerCrop()
-                    .into(image)
-            name.text = book.name
+        buttonAdd.setOnClickListener() {
+            if (buttonAdd.text == "Добавить в список желаемого") {
+
+                values.put(DBHandler.LIKE, "true")
+                db.updateBook(values, book._id)
+                buttonAdd.text = "Убрать из списка желаемого"
+            } else {
+
+                values.put(DBHandler.LIKE, "false")
+                db.updateBook(values, book._id)
+                buttonAdd.text = "Добавить в список желаемого"
+            }
         }
 
 
