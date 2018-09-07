@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity(){
 
                 val intent = Intent(this, Recommended::class.java)
                 startActivity(intent)
+            buttonRecommend.setOnClickListener {
 
+            }
         }
 
         val buttonSorted = findViewById<Button>(R.id.sortedbtn)
@@ -39,6 +41,9 @@ class MainActivity : AppCompatActivity(){
             val intent = Intent(this, Sorted::class.java)
             startActivity(intent)
 
+            buttonSorted.setOnClickListener{
+
+            }
         }
 
         val buttonStart = findViewById<Button>(R.id.sortbtn)
@@ -46,7 +51,9 @@ class MainActivity : AppCompatActivity(){
 
             val intent = Intent(this, Sort::class.java)
             startActivity(intent)
+            buttonStart.setOnClickListener {
 
+            }
         }
     }
 
