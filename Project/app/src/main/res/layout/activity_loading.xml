@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Loading"
-    android:background="#222223"
+    android:background="#FFFACD"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true">
@@ -15,18 +15,17 @@
         android:id="@+id/loadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="@font/robotocondensed_regular"
+        android:text="Librorum"
+        android:textAlignment="center"
+        android:textColor="#26110E"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Librorum"
-        android:textColor="#FFF"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:fontFamily="@font/pressstart_regular"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
