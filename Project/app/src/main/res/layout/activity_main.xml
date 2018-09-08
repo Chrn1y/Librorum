@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFACD"
+    android:background="#FBFBAB"
     tools:context=".MainActivity"
     >
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="#FFFACD"
+        android:background="#FBFBAB"
         android:fontFamily="@font/robotocondensed_regular"
         android:text="Librorum"
         android:textAlignment="center"
@@ -23,19 +23,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="88dp"
+        android:layout_height="89dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/ic_launcher" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="265dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.692">
 
         <Button
             android:id="@+id/sortbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:background="#DECEA1"
+            android:layout_margin="20dp"
+            android:background="#DCDC94"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Начать"
             android:textColor="#26110E"
@@ -45,8 +66,8 @@
             android:id="@+id/sortedbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:background="#DECEA1"
+            android:layout_margin="20dp"
+            android:background="#DCDC94"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Список желаемого"
             android:textColor="#26110E"
@@ -56,8 +77,8 @@
             android:id="@+id/recombtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:background="#DECEA1"
+            android:layout_margin="20dp"
+            android:background="#DCDC94"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Список рекомендаций"
             android:textColor="#26110E"

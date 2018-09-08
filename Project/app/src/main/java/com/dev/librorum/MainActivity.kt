@@ -57,6 +57,39 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val buttonRecommend = findViewById<Button>(R.id.recombtn)
+        buttonRecommend.setOnClickListener{
+
+            val intent = Intent(this, Recommended::class.java)
+            startActivity(intent)
+            buttonRecommend.setOnClickListener {
+
+            }
+        }
+
+        val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+        buttonSorted.setOnClickListener{
+
+            val intent = Intent(this, Sorted::class.java)
+            startActivity(intent)
+
+            buttonSorted.setOnClickListener{
+
+            }
+        }
+
+        val buttonStart = findViewById<Button>(R.id.sortbtn)
+        buttonStart.setOnClickListener{
+
+            val intent = Intent(this, Sort::class.java)
+            startActivity(intent)
+            buttonStart.setOnClickListener {
+
+            }
+        }
+    }
     override fun onBackPressed() {
 
     }

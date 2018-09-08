@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookInfo"
-    android:background="#FFFACD">
+    android:background="#FBFBAB">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descr"
-                android:background="#DECEA1"
+                android:background="#DCDC94"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="#26110E"
 
@@ -116,7 +116,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonInfo"
-                android:background="#DECEA1"
+                android:background="#DCDC94"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="#26110E"
 
