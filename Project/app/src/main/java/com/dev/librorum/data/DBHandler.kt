@@ -58,7 +58,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         val cols = arrayOf(ID, URL, CATEGORY, PICTURE, AUTHOR, NAME, DESCRIPTION, LIKE)
         val selectArgs = arrayOf(key)
 
-        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, NAME)
+        val cursor = sqlQB.query(sqlObj, cols, findIn + " like ?", selectArgs, null, null, ID)
 
         if (cursor.moveToFirst()) {
             do {
