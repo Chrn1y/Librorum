@@ -125,7 +125,7 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val dataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.fant)
+            val inputStream = resources.openRawResource(R.raw.books)
 
             val prefs = Prefs(ctx)
 

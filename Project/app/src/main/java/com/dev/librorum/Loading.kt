@@ -43,7 +43,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
 
         if(prefs.firstTime() != true){
-            number = line.size
+            startActivity(Intent(this@Loading, MainActivity::class.java))
         }
         doAsync {
             DBWrapper.registerCallback(this@Loading, "Loading")
