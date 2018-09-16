@@ -10,6 +10,7 @@ import org.jetbrains.anko.doAsync
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.dev.librorum.Utils.Prefs
+import org.jetbrains.anko.toast
 
 
 class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
@@ -28,6 +29,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
     override fun onDbLoaded() {
         flag = true
+        toast("Все готово")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +54,9 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             if (number >= line.size) {
                 startActivity(Intent(this@Loading, MainActivity::class.java))
 
+                prefs.notFirstTime()
             }
         }
-
 
 
         tap.setOnClickListener {
@@ -65,12 +67,13 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             else if (flag == true) {
 
                 startActivity(Intent(this@Loading, MainActivity::class.java))
+
+                prefs.notFirstTime()
             }
         }
 
 
         changename(line[number-1])
-        prefs.notFirstTime()
 
 
     }
