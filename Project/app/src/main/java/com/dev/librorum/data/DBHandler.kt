@@ -134,6 +134,9 @@ class DBWrapper private constructor() {
                 val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
                     it.split("|")
                 }
+                ctx.runOnUiThread {
+                    listeners.forEach { it.value.onFileReaded() }
+                }
                 prefs.setBookNumber(line.size)
                 val values = ContentValues()
                 for (i in 1..(line.size - 1)) {
@@ -157,5 +160,6 @@ class DBWrapper private constructor() {
 
     interface DbInteraction {
         fun onDbLoaded()
+        fun onFileReaded()
     }
 }
