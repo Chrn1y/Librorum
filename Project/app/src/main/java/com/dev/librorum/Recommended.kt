@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.customViews.RecyclerRecommended
 import com.dev.librorum.data.DBCWrapper
@@ -22,8 +23,16 @@ class Recommended : AppCompatActivity() {
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.getLargestCat(dbc)
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_recommended)
+//        val textSorted = findViewById<TextView>(R.id.textSorted)
+        val textRecom = findViewById<TextView>(R.id.textRecom)
+        textRecom.text = ""
+        if (dataList.size == 0)
+            textRecom.text = "Ваш список рекомендаций пока пуст"
+        else
+            textRecom.text = ""
         toast(db.listBooks("%").size.toString())
         adapter = RecyclerRecommended(this, dataList) { bookData ->
 
@@ -39,8 +48,5 @@ class Recommended : AppCompatActivity() {
         RecommendedList.layoutManager = layoutManager
         RecommendedList.setHasFixedSize(true)
 
-        doAsync {
-            DBWrapper.initDb(applicationContext, resources)
-        }
     }
 }

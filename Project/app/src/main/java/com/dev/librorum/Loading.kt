@@ -35,7 +35,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
     override fun onFileReaded() {
         flag = true
-        toast("Все готово")
+//        toast("Все готово")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

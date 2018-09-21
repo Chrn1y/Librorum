@@ -51,9 +51,6 @@ class Sorted : AppCompatActivity(){
         SortedList.layoutManager = layoutManager
         SortedList.setHasFixedSize(true)
 
-        doAsync {
-            DBWrapper.initDb(applicationContext, resources)
-        }
     }
 
     override fun onResume() {
