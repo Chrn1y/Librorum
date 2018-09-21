@@ -119,6 +119,7 @@ class DBWrapper private constructor() {
 
         }
 
+        
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
@@ -139,7 +140,7 @@ class DBWrapper private constructor() {
                 }
                 prefs.setBookNumber(line.size)
                 val values = ContentValues()
-                for (i in 1..(line.size - 1)) {
+                for (i in dataList.size..(line.size - 1)) {
                     values.put(DBHandler.URL, line[i][0])
                     values.put(DBHandler.CATEGORY, line[i][1])
                     values.put(DBHandler.PICTURE, line[i][2])
