@@ -95,9 +95,9 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-//        doAsync {
-//            DBWrapper.initDb(applicationContext, resources)
-//        }
+        doAsync {
+            DBWrapper.initDb(applicationContext, resources)
+        }
     }
     override fun onBackPressed() {
 
