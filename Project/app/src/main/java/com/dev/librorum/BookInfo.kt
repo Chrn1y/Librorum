@@ -82,5 +82,8 @@ class BookInfo : AppCompatActivity() {
                 }
             }
 
+        doAsync {
+            DBWrapper.initDb(applicationContext, resources)
+        }
     }
 }

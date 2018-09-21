@@ -15,17 +15,17 @@ import kotlinx.android.synthetic.main.activity_recommended.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 
-class Recommended : AppCompatActivity(){
+class Recommended : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var adapter : RecyclerRecommended
+        lateinit var adapter: RecyclerRecommended
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.getLargestCat(dbc)
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommended)
-
-        adapter = RecyclerRecommended(this, dataList) {bookData ->
+        toast(db.listBooks("%").size.toString())
+        adapter = RecyclerRecommended(this, dataList) { bookData ->
 
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, bookData._id.toString())
@@ -39,5 +39,8 @@ class Recommended : AppCompatActivity(){
         RecommendedList.layoutManager = layoutManager
         RecommendedList.setHasFixedSize(true)
 
+        doAsync {
+            DBWrapper.initDb(applicationContext, resources)
+        }
     }
 }

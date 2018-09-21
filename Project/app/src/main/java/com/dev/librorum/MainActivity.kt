@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
 
+        val db = DBWrapper.getInstance(this)
         setContentView(R.layout.activity_main)
 
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
@@ -48,12 +49,16 @@ class MainActivity : AppCompatActivity(){
 
         val buttonStart = findViewById<Button>(R.id.sortbtn)
         buttonStart.setOnClickListener{
+            if (db.listBooks("%").size>0) {
+                val intent = Intent(this, Sort::class.java)
+                startActivity(intent)
+                buttonStart.setOnClickListener {
 
-            val intent = Intent(this, Sort::class.java)
-            startActivity(intent)
-            buttonStart.setOnClickListener {
-
+                }
             }
+        }
+        doAsync {
+            DBWrapper.initDb(applicationContext, resources)
         }
     }
 
@@ -89,6 +94,10 @@ class MainActivity : AppCompatActivity(){
 
             }
         }
+
+//        doAsync {
+//            DBWrapper.initDb(applicationContext, resources)
+//        }
     }
     override fun onBackPressed() {
 

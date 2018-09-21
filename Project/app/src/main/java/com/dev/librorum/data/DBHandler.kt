@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
+import android.util.Log
 import com.dev.librorum.Utils.Prefs
 import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
@@ -119,25 +120,39 @@ class DBWrapper private constructor() {
 
         }
 
-        
+        @JvmStatic
+        fun readFile(ctx: Context, resources: Resources){
+
+            val prefs = Prefs(ctx)
+            var text = ""
+            val inputStream = resources.openRawResource(R.raw.books)
+            if (prefs.allBooks() == ""){
+                text = BufferedReader(InputStreamReader(inputStream)).readText()
+                prefs.setBooks(text)
+
+                Log.d("Librorum", text.length.toString())
+            }
+            ctx.runOnUiThread {
+                listeners.forEach { it.value.onFileReaded() }
+            }
+
+        }
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
 
             val dataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.books)
+            val inputStream = resources.openRawResource(R.raw.books2)
 
             val prefs = Prefs(ctx)
 
             if (dataList.size == 0 || dataList.size < prefs.bookNumber()) {
 
-                val line = BufferedReader(InputStreamReader(inputStream)).readLines().map {
+                val line = prefs.allBooks().lines().map {
                     it.split("|")
                 }
-                ctx.runOnUiThread {
-                    listeners.forEach { it.value.onFileReaded() }
-                }
+
                 prefs.setBookNumber(line.size)
                 val values = ContentValues()
                 for (i in dataList.size..(line.size - 1)) {
@@ -150,17 +165,17 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
-                DBCWrapper.initDb(ctx)
+//                DBCWrapper.initDb(ctx)
             }
-            ctx.runOnUiThread {
-                listeners.forEach { it.value.onDbLoaded() }
-            }
+//            ctx.runOnUiThread {
+//                listeners.forEach { it.value.onDbLoaded() }
+//            }
 
         }
     }
 
     interface DbInteraction {
-        fun onDbLoaded()
+//        fun onDbLoaded()
         fun onFileReaded()
     }
 }

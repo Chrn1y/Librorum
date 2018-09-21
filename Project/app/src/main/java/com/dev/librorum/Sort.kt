@@ -15,6 +15,7 @@ import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import java.util.*
 import kotlin.math.absoluteValue
@@ -32,7 +33,7 @@ class Sort : AppCompatActivity() {
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
         val number = dataList.size
-        var id = (0..number).random().toString()
+        var id = (0..(number-1)).random().toString()
         var book =  db.findBook(id)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
@@ -128,6 +129,8 @@ class Sort : AppCompatActivity() {
             }
         }
 
-
+        doAsync {
+            DBWrapper.initDb(applicationContext, resources)
+        }
     }
 }

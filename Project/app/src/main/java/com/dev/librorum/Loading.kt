@@ -10,6 +10,7 @@ import org.jetbrains.anko.doAsync
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.dev.librorum.Utils.Prefs
+import com.dev.librorum.data.DBCWrapper
 import org.jetbrains.anko.toast
 
 
@@ -27,13 +28,13 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
     }
 
 
-    override fun onDbLoaded() {
-        flag = true
-        toast("Все готово")
-    }
+//    override fun onDbLoaded() {
+//
+//    }
 
     override fun onFileReaded() {
-        
+        flag = true
+        toast("Все готово")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,14 +53,16 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             startActivity(Intent(this@Loading, MainActivity::class.java))
         }
         doAsync {
+            DBCWrapper.initDb(applicationContext, resources)
             DBWrapper.registerCallback(this@Loading, "Loading")
-            DBWrapper.initDb(applicationContext, resources)
+            DBWrapper.readFile(applicationContext, resources)
 
             if (number >= line.size) {
                 startActivity(Intent(this@Loading, MainActivity::class.java))
 
                 prefs.notFirstTime()
             }
+            DBWrapper.initDb(applicationContext, resources)
         }
 
 

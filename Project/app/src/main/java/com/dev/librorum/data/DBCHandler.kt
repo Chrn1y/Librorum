@@ -106,17 +106,13 @@ class DBCWrapper private constructor() {
 
 
         @JvmStatic
-        fun initDb(ctx: Context/*, resources: Resources*/) {
+        fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
             val db = DBWrapper.getInstance(ctx)
             val dataList = dbc!!.listCategories("%")
-            val data = db.listBooks("%")
-            val uniqueList = data.distinctBy { it.categoryId }
-            val categoryList = mutableListOf<String>()
-            uniqueList.forEach{
-                categoryList += it.categoryId
-                Log.d("Librorum", it.categoryId)
-            }
+            val inputStream = resources.openRawResource(R.raw.cat)
+
+            val categoryList = BufferedReader(InputStreamReader(inputStream)).readLines()
             if (dataList.size == 0 ) {
                 for (temp in dataList) {
                     dbc!!.removeCategory(temp._id)
