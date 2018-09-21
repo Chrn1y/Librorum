@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
+import android.widget.Button
 import android.widget.TextView
 import com.dev.librorum.data.DBWrapper
 import org.jetbrains.anko.doAsync
@@ -79,7 +80,11 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             }
         }
 
-
+        val skip = findViewById<Button>(R.id.buttonSkip)
+        skip.setOnClickListener(){
+            number = line.size-1
+            changename(line[number])
+        }
         changename(line[number-1])
 
 
