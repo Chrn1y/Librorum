@@ -7,6 +7,8 @@ class Prefs(context: Context){
     val PREFERENCE_NAME="librorum"
     val PREFERENCE_FIRST = "first"
     val PREFERENCE_BOOKS = "bookNumber"
+
+    val PREFERENCE_ALLBOOKS = "allBooks"
     val preference = context.getSharedPreferences(PREFERENCE_NAME,Context.MODE_PRIVATE)
 
     fun firstTime() : Boolean{
@@ -29,4 +31,15 @@ class Prefs(context: Context){
         editor.apply()
     }
 
+    fun allBooks() : String{
+        return preference.getString(PREFERENCE_BOOKS, "")
+    }
+
+    fun setBooks(books: String){
+
+        val editor = preference.edit()
+        editor.putString(PREFERENCE_BOOKS, books)
+        editor.apply()
+
+    }
 }
