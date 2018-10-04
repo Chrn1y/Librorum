@@ -96,7 +96,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descr"
-                android:background="#DCDC94"
+                android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="#26110E"
 
@@ -116,7 +116,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonInfo"
-                android:background="#DCDC94"
+                android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="#26110E"
 

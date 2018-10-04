@@ -26,7 +26,6 @@ class Sorted : AppCompatActivity(){
         val dataList = db.listLikes()
 
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorted)
 

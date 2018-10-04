@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="#DCDC94"
+            android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Интересно"
             android:textColor="#26110E" />
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="#DCDC94"
+            android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Не интересно"
             android:textColor="#26110E" />
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="#DCDC94"
+            android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Добавить в список желаемого"
             android:textColor="#26110E" />
