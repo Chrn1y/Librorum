@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Recommended"
-    android:background="#FBFBAB">
+    android:background="#E9DEC0">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/SortedList"

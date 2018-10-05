@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFBAB"
+    android:background="#E9DEC0"
     tools:context=".MainActivity"
     >
 
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="#FBFBAB"
+        android:background="#E9DEC0"
         android:fontFamily="@font/robotocondensed_regular"
         android:text="Librorum"
         android:textAlignment="center"
