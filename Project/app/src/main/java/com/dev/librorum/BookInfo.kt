@@ -47,7 +47,7 @@ class BookInfo : AppCompatActivity() {
 
         Picasso.get()
                 .load(book.picture)
-                .resize(360, 640)
+                .resize(430, 640)
                 //.fit()
                 .centerCrop()
                 .into(image)

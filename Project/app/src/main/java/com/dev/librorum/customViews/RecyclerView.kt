@@ -45,7 +45,7 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
             text?.text = book.name
             Picasso.get()
                     .load(book.picture)
-                    .resize(290, 400)
+                    .resize(430, 640)
                     //.fit()
                     .centerCrop()
                     .into(image)

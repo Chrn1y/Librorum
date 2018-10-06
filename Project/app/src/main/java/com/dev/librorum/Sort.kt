@@ -46,7 +46,7 @@ class Sort : AppCompatActivity() {
         val image = findViewById(R.id.imageSort) as ImageView
         Picasso.get()
                 .load(book.picture)
-                .resize(400, 640)
+                .resize(430, 640)
                 //.fit()
                 .centerCrop()
                 .into(image)
