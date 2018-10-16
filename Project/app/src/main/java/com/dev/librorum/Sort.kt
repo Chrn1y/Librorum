@@ -10,10 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
-import com.dev.librorum.data.DBCHandler
-import com.dev.librorum.data.DBCWrapper
-import com.dev.librorum.data.DBHandler
-import com.dev.librorum.data.DBWrapper
+import com.dev.librorum.data.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_sort.*
 import org.jetbrains.anko.doAsync
@@ -23,9 +20,24 @@ import kotlin.math.absoluteValue
 
 class Sort : AppCompatActivity() {
 
+
     private fun ClosedRange<Int>.random() =
             Random().nextInt((endInclusive + 1) - start) +  start
+    var index = 0
 
+    val db = DBWrapper.getInstance(this)
+    val dbc = DBCWrapper.getInstance(this)
+//    val dataList = db.listBooks("%")
+    var categoriesList = dbc.listCategories("%")
+    fun getBook():BookData{
+
+        if (index+1 == categoriesList.size)
+            index = 0
+        else
+            index++
+
+        return db.getRandomCatBook(dbc, index)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sort)
@@ -36,11 +48,9 @@ class Sort : AppCompatActivity() {
 
         val number = dataList.size
         var id = (0..(number-1)).random().toString()
-        var book =  db.findBook(id)
+        var book =  getBook()
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
-//        val dbc = DBCWrapper.getInstance(this)
-//        val catDataList = dbc.listCategories("%")
         name.text = book.name
 
 //        toast(catDataList.size.toString())
@@ -77,7 +87,7 @@ class Sort : AppCompatActivity() {
             dbc.updateCategory(values,dbc.categoryId(book.categoryId))
 
             id = (0..number).random().toString()
-            book =  db.findBook(id)
+            book =  getBook()
             Picasso.get()
                     .load(book.picture)
                     .resize(580, 800)
@@ -99,7 +109,7 @@ class Sort : AppCompatActivity() {
             dbc.updateCategory(values,dbc.categoryId(book.categoryId))
 
             id = (0..number).random().toString()
-            book =  db!!.findBook(id)
+            book =  getBook()
             Picasso.get()
                     .load(book.picture)
                     .resize(580, 800)
@@ -113,7 +123,7 @@ class Sort : AppCompatActivity() {
         arrow.setOnClickListener{
 
             id = (0..number).random().toString()
-            book =  db!!.findBook(id)
+            book =  getBook()
             Picasso.get()
                     .load(book.picture)
                     .resize(580, 800)
@@ -143,8 +153,8 @@ class Sort : AppCompatActivity() {
             }
         }
 
-        doAsync {
-            DBWrapper.initDb(applicationContext, resources)
-        }
+//        doAsync {
+//            DBWrapper.initDb(applicationContext, resources)
+//        }
     }
 }
