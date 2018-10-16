@@ -15,6 +15,7 @@ import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_sort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import java.util.*
@@ -26,18 +27,18 @@ class Sort : AppCompatActivity() {
             Random().nextInt((endInclusive + 1) - start) +  start
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sort)
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
+
         val number = dataList.size
         var id = (0..(number-1)).random().toString()
         var book =  db.findBook(id)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
-        
 //        val dbc = DBCWrapper.getInstance(this)
 //        val catDataList = dbc.listCategories("%")
         name.text = book.name
@@ -107,6 +108,19 @@ class Sort : AppCompatActivity() {
                     .into(image)
             name.text = book.name
 
+        }
+
+        arrow.setOnClickListener{
+
+            id = (0..number).random().toString()
+            book =  db!!.findBook(id)
+            Picasso.get()
+                    .load(book.picture)
+                    .resize(580, 800)
+                    //.fit()
+                    .centerCrop()
+                    .into(image)
+            name.text = book.name
         }
 
         val buttonAdd = findViewById<Button>(R.id.addbtn)

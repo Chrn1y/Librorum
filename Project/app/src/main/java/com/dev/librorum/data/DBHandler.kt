@@ -12,6 +12,7 @@ import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.util.*
 import kotlin.collections.ArrayList
 
 class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
@@ -92,6 +93,19 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     fun findBook (key: String): BookData {
         return loadListFromDB(key, ID)[0]
     }
+
+    fun getRandomCatBook(cat: String): BookData{
+        val category = loadListFromDB(cat, CATEGORY)
+        val id = (0..(category.size-1)).random().toString()
+        return findBook(id)
+    }
+
+
+    private fun ClosedRange<Int>.random() =
+            Random().nextInt((endInclusive + 1) - start) +  start
+
+
+
 
     fun getLargestCat(dbc : DBCHandler) : ArrayList<BookData>{
         val categories = dbc.listCategories("%")
