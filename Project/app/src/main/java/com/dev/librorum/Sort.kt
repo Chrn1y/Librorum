@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -35,7 +36,7 @@ class Sort : AppCompatActivity() {
             index = 0
         else
             index++
-
+        Log.d("Librorum", index.toString())
         return db.getRandomCatBook(dbc, index)
     }
     override fun onCreate(savedInstanceState: Bundle?) {

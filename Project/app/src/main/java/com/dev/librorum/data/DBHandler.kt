@@ -98,8 +98,9 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         val categories = dbc.listCategories("%")
         val category = categories[index].type
         val list = loadListFromDB(category, CATEGORY)
-        val id = (0..(list.size-1)).random().toString()
-        return findBook(id)
+        val ind = (0..(list.size-1)).random()
+//        Log.d("Librorum","book id: " + ind)
+        return list[ind]
     }
 
 
@@ -141,7 +142,7 @@ class DBWrapper private constructor() {
 
             val prefs = Prefs(ctx)
             var text = ""
-            val inputStream = resources.openRawResource(R.raw.books)
+            val inputStream = resources.openRawResource(R.raw.booksfinal)
             if (prefs.allBooks() == ""){
                 text = BufferedReader(InputStreamReader(inputStream)).readText()
                 prefs.setBooks(text)
@@ -159,14 +160,13 @@ class DBWrapper private constructor() {
             getInstance(ctx)
 
             val dataList = db!!.listBooks("%")
-            val inputStream = resources.openRawResource(R.raw.books2)
 
             val prefs = Prefs(ctx)
 
             if (dataList.size == 0 || dataList.size < prefs.bookNumber()) {
 
                 val line = prefs.allBooks().lines().map {
-                    it.split("|")
+                    it.split(";")
                 }
 
                 prefs.setBookNumber(line.size)
