@@ -97,8 +97,15 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     fun getRandomCatBook(dbc : DBCHandler, index: Int): BookData{
         val categories = dbc.listCategories("%")
         val category = categories[index].type
-        val list = loadListFromDB(category, CATEGORY)
-        val ind = (0..(list.size-1)).random()
+        var list = loadListFromDB(category, CATEGORY)
+        var ind = 0
+        if (list.size > 2) {
+            ind = (0..(list.size - 1)).random()
+        }
+        else{
+            list = loadListFromDB("%", ID)
+            ind = (0..(list.size - 1)).random()
+        }
 //        Log.d("Librorum","book id: " + ind)
         return list[ind]
     }
