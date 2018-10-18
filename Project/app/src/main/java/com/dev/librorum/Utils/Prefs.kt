@@ -21,7 +21,7 @@ class Prefs(context: Context){
         editor.apply()
     }
 
-    fun bookNumber() : Int{
+    fun getBookNumber() : Int{
         return preference.getInt(PREFERENCE_BOOKS, 0)
     }
 
@@ -32,13 +32,13 @@ class Prefs(context: Context){
     }
 
     fun allBooks() : String{
-        return preference.getString(PREFERENCE_BOOKS, "")
+        return preference.getString(PREFERENCE_ALLBOOKS, "")
     }
 
     fun setBooks(books: String){
 
         val editor = preference.edit()
-        editor.putString(PREFERENCE_BOOKS, books)
+        editor.putString(PREFERENCE_ALLBOOKS, books)
         editor.apply()
 
     }

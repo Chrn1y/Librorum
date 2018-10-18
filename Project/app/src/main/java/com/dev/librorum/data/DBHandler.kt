@@ -148,6 +148,11 @@ class DBWrapper private constructor() {
                 prefs.setBooks(text)
 
                 Log.d("Librorum", text.length.toString())
+                val line = prefs.allBooks().lines().map {
+                    it.split(";")
+                }
+
+                prefs.setBookNumber(line.size)
             }
             ctx.runOnUiThread {
                 listeners.forEach { it.value.onFileReaded() }
@@ -158,12 +163,12 @@ class DBWrapper private constructor() {
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
             getInstance(ctx)
-
             val dataList = db!!.listBooks("%")
 
             val prefs = Prefs(ctx)
+            Log.d("Librorum", prefs.getBookNumber().toString())
 
-            if (dataList.size == 0 || dataList.size < prefs.bookNumber()) {
+            if (dataList.size == 0 || dataList.size < prefs.getBookNumber()) {
 
                 val line = prefs.allBooks().lines().map {
                     it.split(";")
@@ -172,6 +177,7 @@ class DBWrapper private constructor() {
                 prefs.setBookNumber(line.size)
                 val values = ContentValues()
                 for (i in dataList.size..(line.size - 1)) {
+                    Log.d("Librorum", dataList.size.toString())
                     values.put(DBHandler.URL, line[i][0])
                     values.put(DBHandler.CATEGORY, line[i][1])
                     values.put(DBHandler.PICTURE, line[i][2])

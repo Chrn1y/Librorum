@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
+
     override fun onResume() {
         super.onResume()
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
@@ -94,10 +95,10 @@ class MainActivity : AppCompatActivity(){
 
             }
         }
-
-        doAsync {
-            DBWrapper.initDb(applicationContext, resources)
-        }
+//
+//        doAsync {
+//            DBWrapper.initDb(applicationContext, resources)
+//        }
     }
     override fun onBackPressed() {
 

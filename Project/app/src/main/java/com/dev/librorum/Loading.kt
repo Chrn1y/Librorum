@@ -39,7 +39,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
         val prefs = Prefs(this)
 
@@ -63,7 +63,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
                 prefs.notFirstTime()
             }
-            DBWrapper.initDb(applicationContext, resources)
+//            DBWrapper.initDb(applicationContext, resources)
         }
 
 
