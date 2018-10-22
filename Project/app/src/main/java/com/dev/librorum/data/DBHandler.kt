@@ -149,14 +149,14 @@ class DBWrapper private constructor() {
 
             val prefs = Prefs(ctx)
             var text = ""
-            val inputStream = resources.openRawResource(R.raw.booksfinal)
+            val inputStream = resources.openRawResource(R.raw.hellyeahbooks)
             if (prefs.allBooks() == ""){
                 text = BufferedReader(InputStreamReader(inputStream)).readText()
                 prefs.setBooks(text)
 
                 Log.d("Librorum", text.length.toString())
                 val line = prefs.allBooks().lines().map {
-                    it.split(";")
+                    it.split("|")
                 }
 
                 prefs.setBookNumber(line.size)
