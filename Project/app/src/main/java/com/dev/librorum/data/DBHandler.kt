@@ -178,7 +178,7 @@ class DBWrapper private constructor() {
             if (dataList.size == 0 || dataList.size < prefs.getBookNumber()) {
 
                 val line = prefs.allBooks().lines().map {
-                    it.split(";")
+                    it.split("|")
                 }
 
                 prefs.setBookNumber(line.size)
