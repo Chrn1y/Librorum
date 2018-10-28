@@ -52,8 +52,9 @@ class Sort : AppCompatActivity() {
         var book =  getBook()
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
+        val author = findViewById(R.id.authorSort) as TextView
         name.text = book.name
-
+        author.text = book.author
 //        toast(catDataList.size.toString())
         val image = findViewById(R.id.imageSort) as ImageView
         Picasso.get()
@@ -68,7 +69,11 @@ class Sort : AppCompatActivity() {
             intent.putExtra(EXTRA_ID, book._id.toString())
             startActivity(intent)
         }
-
+    author.setOnClickListener {
+        val intent = Intent(this, BookInfo::class.java)
+        intent.putExtra(EXTRA_ID, book._id.toString())
+        startActivity(intent)
+    }
         image.setOnClickListener {
             val intent = Intent(this, BookInfo::class.java)
             intent.putExtra(EXTRA_ID, book._id.toString())
@@ -96,7 +101,7 @@ class Sort : AppCompatActivity() {
                     .centerCrop()
                     .into(image)
             name.text = book.name
-
+            author.text = book.author
         }
 
         val buttonDislike = findViewById<Button>(R.id.dislikebtn)
@@ -118,7 +123,7 @@ class Sort : AppCompatActivity() {
                     .centerCrop()
                     .into(image)
             name.text = book.name
-
+            author.text = book.author
         }
 
         arrow.setOnClickListener{
@@ -132,6 +137,7 @@ class Sort : AppCompatActivity() {
                     .centerCrop()
                     .into(image)
             name.text = book.name
+            author.text = book.author
         }
 
         val buttonAdd = findViewById<Button>(R.id.addbtn)
