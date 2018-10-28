@@ -12,6 +12,9 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.dev.librorum.Utils.Prefs
 import com.dev.librorum.data.DBCWrapper
+import com.github.florent37.kotlin.pleaseanimate.please
+import kotlinx.android.synthetic.main.activity_loading.*
+import kotlinx.coroutines.experimental.delay
 import org.jetbrains.anko.toast
 
 
@@ -20,12 +23,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
     private fun changename (text: String){
         val name = findViewById(R.id.loadingText) as TextView
-        for (i in 0..text.length-1){
-                name.postDelayed(Runnable { name.text = name.text.toString()+text[i]
-
-                }, 0)
-        }
-        name.text = ""
+                name.text = text
     }
 
 
@@ -68,16 +66,16 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 
 
         tap.setOnClickListener {
-            if(number < line.size) {
-                changename(line[number])
-                number++
-            }
-            else if (flag == true) {
+                if(number < line.size) {
+                    changename(line[number])
+                    number++
+                }
+                else if (flag == true) {
 
-                startActivity(Intent(this@Loading, MainActivity::class.java))
+                    startActivity(Intent(this@Loading, MainActivity::class.java))
 
-                prefs.notFirstTime()
-            }
+                    prefs.notFirstTime()
+                }
         }
 
         val skip = findViewById<Button>(R.id.buttonSkip)

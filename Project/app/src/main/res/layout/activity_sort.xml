@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9DEC0"
+    android:background="@color/colorPrimary"
     tools:context=".Sort">
 
     <ImageView
@@ -43,7 +43,7 @@
         android:fontFamily="@font/robotocondensed_regular"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#26110E"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -75,7 +75,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Интересно"
-            android:textColor="#26110E" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/dislikebtn"
@@ -85,7 +85,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Не интересно"
-            android:textColor="#26110E" />
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/addbtn"
@@ -95,7 +95,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Добавить в список желаемого"
-            android:textColor="#26110E" />
+            android:textColor="@color/colorAccent" />
 
 
     </LinearLayout>

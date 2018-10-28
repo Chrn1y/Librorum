@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E9DEC0">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,13 +36,11 @@
             android:id="@+id/textPart"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="25dp"
             android:layout_weight="5"
             android:fontFamily="@font/robotocondensed_regular"
             android:textAlignment="center"
-            android:textColor="#26110E"
+            android:textColor="@color/colorAccent"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

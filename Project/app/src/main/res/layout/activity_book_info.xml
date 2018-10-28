@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BookInfo"
-    android:background="#E9DEC0">
+    android:background="@color/colorPrimary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
-                android:textColor="#26110E"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textAlignment="center"
-                android:textColor="#26110E"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
-                android:textColor="#26110E"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/descr"
                 android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
-                android:textColor="#26110E"
+                android:textColor="@color/colorAccent"
 
                 />
 
@@ -118,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/buttonInfo"
                 android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
-                android:textColor="#26110E"
+                android:textColor="@color/colorAccent"
 
                 />
 

@@ -1,6 +1,7 @@
 package com.dev.librorum.customViews
 
 import android.content.Context
+import android.graphics.Canvas
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,9 @@ import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find
 import org.jetbrains.anko.image
+import android.graphics.drawable.Drawable
+
+
 
 
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
@@ -87,6 +91,32 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>, val
                     .centerCrop()
                     .into(image)
             itemView.setOnClickListener { itemClick(book) }
+        }
+    }
+}
+
+class SimpleDividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
+    private val mDivider: Drawable
+
+    init {
+        mDivider = context.resources.getDrawable(R.drawable.line_divider)
+    }
+
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        val left = parent.paddingLeft
+        val right = parent.width - parent.paddingRight
+
+        val childCount = parent.childCount
+        for (i in 0 until childCount) {
+            val child = parent.getChildAt(i)
+
+            val params = child.layoutParams as RecyclerView.LayoutParams
+
+            val top = child.bottom + params.bottomMargin
+            val bottom = top + mDivider.intrinsicHeight
+
+            mDivider.setBounds(left, top, right, bottom)
+            mDivider.draw(c)
         }
     }
 }

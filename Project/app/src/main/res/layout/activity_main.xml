@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9DEC0"
+    android:background="@color/colorPrimary"
     tools:context=".MainActivity"
     >
 
@@ -14,11 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:background="#E9DEC0"
+        android:background="@color/colorPrimary"
         android:fontFamily="@font/robotocondensed_regular"
         android:text="Librorum"
         android:textAlignment="center"
-        android:textColor="#26110E"
+        android:textColor="@color/colorAccent"
         android:textSize="44sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Начать"
-            android:textColor="#26110E"
+            android:textColor="@color/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
         <Button
@@ -59,7 +59,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Список желаемого"
-            android:textColor="#26110E"
+            android:textColor="@color/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/sortbtn" />
 
         <Button
@@ -70,7 +70,7 @@
             android:background="@drawable/button_background"
             android:fontFamily="@font/robotocondensed_regular"
             android:text="Список рекомендаций"
-            android:textColor="#26110E"
+            android:textColor="@color/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/sortedbtn" />
     </LinearLayout>
 
