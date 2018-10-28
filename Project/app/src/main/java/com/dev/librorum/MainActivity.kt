@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import com.dev.librorum.Utils.Prefs
 import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
@@ -57,8 +58,17 @@ class MainActivity : AppCompatActivity(){
                 }
             }
         }
+
+        val prefs = Prefs(this)
+        info.setOnClickListener{
+            prefs.wannaReadLoading()
+            val intent = Intent(this, Loading::class.java)
+            startActivity(intent)
+        }
+
         doAsync {
             DBWrapper.initDb(applicationContext, resources)
+
         }
     }
 

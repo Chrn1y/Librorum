@@ -41,39 +41,47 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         setContentView(R.layout.activity_loading)
         val prefs = Prefs(this)
 
-
         val inputStream = resources.openRawResource(R.raw.loading)
-        val line = BufferedReader(InputStreamReader(inputStream)).readLines()
+        var line = BufferedReader(InputStreamReader(inputStream)).readLines()
         var number = 1
         val tap = findViewById<ConstraintLayout>(R.id.nextText)
 
+        if(prefs.readLoading()) {
+            line = line.dropLast(1)
+//            toast("welldone")
+        }
 
-        if(prefs.firstTime() != true){
+        if(prefs.firstTime() != true && prefs.readLoading() != true){
             startActivity(Intent(this@Loading, MainActivity::class.java))
+            prefs.finishedReadingLoading()
         }
-        doAsync {
-            DBCWrapper.initDb(applicationContext, resources)
-            DBWrapper.registerCallback(this@Loading, "Loading")
-            DBWrapper.readFile(applicationContext, resources)
+        if(prefs.firstTime() == true){
+//            toast("YOUFUCKEDUPAGAIN")
+            doAsync {
+                DBCWrapper.initDb(applicationContext, resources)
+                DBWrapper.registerCallback(this@Loading, "Loading")
+                DBWrapper.readFile(applicationContext, resources)
 
-            if (number >= line.size) {
-                startActivity(Intent(this@Loading, MainActivity::class.java))
+                if (number >= line.size) {
+                    startActivity(Intent(this@Loading, MainActivity::class.java))
 
-                prefs.notFirstTime()
-            }
+                    prefs.finishedReadingLoading()
+                    prefs.notFirstTime()
+                }
 //            DBWrapper.initDb(applicationContext, resources)
+            }
         }
-
 
         tap.setOnClickListener {
                 if(number < line.size) {
                     changename(line[number])
                     number++
                 }
-                else if (flag == true) {
+                else if (flag == true || prefs.readLoading() == true) {
 
                     startActivity(Intent(this@Loading, MainActivity::class.java))
 
+                    prefs.finishedReadingLoading()
                     prefs.notFirstTime()
                 }
         }

@@ -74,4 +74,14 @@
             app:layout_constraintTop_toBottomOf="@+id/sortedbtn" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/info"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/info" />
+
 </android.support.constraint.ConstraintLayout>
