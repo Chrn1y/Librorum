@@ -55,7 +55,8 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             startActivity(Intent(this@Loading, MainActivity::class.java))
             prefs.finishedReadingLoading()
         }
-        if(prefs.firstTime() == true){
+
+        if(prefs.readLoading() != true){
 //            toast("YOUFUCKEDUPAGAIN")
             doAsync {
                 DBCWrapper.initDb(applicationContext, resources)

@@ -13,11 +13,18 @@ import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.data.*
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Transformation
 import kotlinx.android.synthetic.main.activity_sort.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import java.util.*
 import kotlin.math.absoluteValue
+import android.R.attr.y
+import android.R.attr.x
+import android.graphics.Point
+import android.view.Display
+
+
 
 class Sort : AppCompatActivity() {
 
@@ -47,22 +54,34 @@ class Sort : AppCompatActivity() {
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
 
+        val image = findViewById(R.id.imageSort) as ImageView
         val number = dataList.size
         var id = (0..(number-1)).random().toString()
+        fun fitPicBook(book:BookData){
+            val display = windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x
+            val height = size.y
+            Picasso.get()
+                    .load(book.picture)
+//                .resize(430, 640)
+//                .fit()
+//                .transform(Transformation)
+                    .resize((width/2.8).toInt(), height/3)
+                    .centerCrop()
+                    .into(image)
+        }
         var book =  getBook()
+        fitPicBook(book)
         val values = ContentValues()
         val name = findViewById(R.id.nameSort) as TextView
         val author = findViewById(R.id.authorSort) as TextView
         name.text = book.name
         author.text = book.author
 //        toast(catDataList.size.toString())
-        val image = findViewById(R.id.imageSort) as ImageView
-        Picasso.get()
-                .load(book.picture)
-                .resize(430, 640)
-                //.fit()
-                .centerCrop()
-                .into(image)
+
+
 
         name.setOnClickListener {
             val intent = Intent(this, BookInfo::class.java)
@@ -94,12 +113,7 @@ class Sort : AppCompatActivity() {
 
             id = (0..number).random().toString()
             book =  getBook()
-            Picasso.get()
-                    .load(book.picture)
-                    .resize(580, 800)
-                    //.fit()
-                    .centerCrop()
-                    .into(image)
+            fitPicBook(book)
             name.text = book.name
             author.text = book.author
         }
@@ -116,12 +130,7 @@ class Sort : AppCompatActivity() {
 
             id = (0..number).random().toString()
             book =  getBook()
-            Picasso.get()
-                    .load(book.picture)
-                    .resize(580, 800)
-                    //.fit()
-                    .centerCrop()
-                    .into(image)
+            fitPicBook(book)
             name.text = book.name
             author.text = book.author
         }
@@ -130,12 +139,7 @@ class Sort : AppCompatActivity() {
 
             id = (0..number).random().toString()
             book =  getBook()
-            Picasso.get()
-                    .load(book.picture)
-                    .resize(580, 800)
-                    //.fit()
-                    .centerCrop()
-                    .into(image)
+            fitPicBook(book)
             name.text = book.name
             author.text = book.author
         }
