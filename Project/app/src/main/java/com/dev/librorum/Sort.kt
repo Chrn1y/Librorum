@@ -53,7 +53,7 @@ class Sort : AppCompatActivity() {
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
-
+        val buttonAdd = findViewById<Button>(R.id.addbtn)
         val image = findViewById(R.id.imageSort) as ImageView
         val number = dataList.size
         var id = (0..(number-1)).random().toString()
@@ -116,6 +116,10 @@ class Sort : AppCompatActivity() {
             fitPicBook(book)
             name.text = book.name
             author.text = book.author
+            if (book.like == "false")
+                buttonAdd.text = "Добавить в список желаемого"
+            else
+                buttonAdd.text = "Убрать из списка желаемого"
         }
 
         val buttonDislike = findViewById<Button>(R.id.dislikebtn)
@@ -133,6 +137,10 @@ class Sort : AppCompatActivity() {
             fitPicBook(book)
             name.text = book.name
             author.text = book.author
+            if (book.like == "false")
+                buttonAdd.text = "Добавить в список желаемого"
+            else
+                buttonAdd.text = "Убрать из списка желаемого"
         }
 
         arrow.setOnClickListener{
@@ -142,9 +150,13 @@ class Sort : AppCompatActivity() {
             fitPicBook(book)
             name.text = book.name
             author.text = book.author
+            if (book.like == "false")
+                buttonAdd.text = "Добавить в список желаемого"
+            else
+                buttonAdd.text = "Убрать из списка желаемого"
         }
 
-        val buttonAdd = findViewById<Button>(R.id.addbtn)
+
         if (book.like == "false")
             buttonAdd.text = "Добавить в список желаемого"
         else
