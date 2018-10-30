@@ -34,7 +34,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
     private var sqlObj: SQLiteDatabase = this.writableDatabase // Сущность SQLiteDatabase
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $URL TEXT, $CATEGORY TEXT, $PICTURE TEXT, $AUTHOR TEXT, $NAME TEXT,  $DESCRIPTION TEXT, $LIKE TEXT);"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $URL TEXT, $CATEGORY TEXT, $PICTURE TEXT, $AUTHOR TEXT, $NAME TEXT UNIQUE,  $DESCRIPTION TEXT, $LIKE TEXT);"
         currentDB!!.execSQL(sql1)
     }
 
@@ -184,7 +184,7 @@ class DBWrapper private constructor() {
                 prefs.setBookNumber(line.size)
                 val values = ContentValues()
                 for (i in dataList.size..(line.size - 1)) {
-                    Log.d("Librorum", dataList.size.toString())
+//                    Log.d("Librorum", dataList.size.toString())
                     values.put(DBHandler.URL, line[i][0])
                     values.put(DBHandler.CATEGORY, line[i][1])
                     values.put(DBHandler.PICTURE, line[i][2])

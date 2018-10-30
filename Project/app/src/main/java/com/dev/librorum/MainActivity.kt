@@ -28,11 +28,14 @@ class MainActivity : AppCompatActivity(){
 
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
         buttonRecommend.setOnClickListener{
-
+            try {
                 val intent = Intent(this, Recommended::class.java)
                 startActivity(intent)
-            buttonRecommend.setOnClickListener {
+                buttonRecommend.setOnClickListener {
 
+                }
+            } catch(e: Exception){
+                Log.d("Error",e.toString())
             }
         }
 
@@ -82,11 +85,14 @@ class MainActivity : AppCompatActivity(){
         super.onResume()
         val buttonRecommend = findViewById<Button>(R.id.recombtn)
         buttonRecommend.setOnClickListener{
+            try {
+                val intent = Intent(this, Recommended::class.java)
+                startActivity(intent)
+                buttonRecommend.setOnClickListener {
 
-            val intent = Intent(this, Recommended::class.java)
-            startActivity(intent)
-            buttonRecommend.setOnClickListener {
-
+                }
+            } catch(e: Exception){
+                Log.d("Error",e.toString())
             }
         }
 
@@ -103,13 +109,18 @@ class MainActivity : AppCompatActivity(){
 
         val buttonStart = findViewById<Button>(R.id.sortbtn)
         buttonStart.setOnClickListener{
-            val db = DBWrapper.getInstance(this)
-            if (db.listBooks("%").size>0) {
-                val intent = Intent(this, Sort::class.java)
-                startActivity(intent)
-                buttonStart.setOnClickListener {
+            try {
+                val db = DBWrapper.getInstance(this)
+                val dbc = DBCWrapper.getInstance(this)
 
+                if (db.listBooks("%").size>0 && dbc.listCategories("%").size>0) {
+                    val intent = Intent(this, Sort::class.java)
+                    startActivity(intent)
+                    buttonStart.setOnClickListener {
+                    }
                 }
+            } catch (e: Exception){
+                Log.d("Error",e.toString())
             }
         }
 //

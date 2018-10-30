@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.customViews.RecyclerRecommended
 import com.dev.librorum.customViews.RecyclerSorted
+import com.dev.librorum.customViews.SimpleDividerItemDecoration
 import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import kotlinx.android.synthetic.main.activity_recommended.*
@@ -49,6 +50,9 @@ class Sorted : AppCompatActivity(){
 
         SortedList.layoutManager = layoutManager
         SortedList.setHasFixedSize(true)
+        SortedList.addItemDecoration(SimpleDividerItemDecoration(
+                getApplicationContext()
+        ))
 
     }
 

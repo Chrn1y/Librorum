@@ -41,7 +41,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
         val prefs = Prefs(this)
-
         val inputStream = resources.openRawResource(R.raw.loading)
         var line = BufferedReader(InputStreamReader(inputStream)).readLines()
         var number = 1
