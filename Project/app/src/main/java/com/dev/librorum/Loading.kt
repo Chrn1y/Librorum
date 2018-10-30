@@ -1,6 +1,7 @@
 package com.dev.librorum
 
 import android.content.Intent
+import android.graphics.Point
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -45,7 +46,12 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         var line = BufferedReader(InputStreamReader(inputStream)).readLines()
         var number = 1
         val tap = findViewById<ConstraintLayout>(R.id.nextText)
-
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val width = size.x
+        val height = size.y
+        loadingText.maxWidth = (width*(0.9)).toInt()
         if(prefs.readLoading()) {
             line = line.dropLast(1)
 //            toast("welldone")

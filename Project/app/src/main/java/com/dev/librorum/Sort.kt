@@ -156,7 +156,6 @@ class Sort : AppCompatActivity() {
                 buttonAdd.text = "Убрать из списка желаемого"
         }
 
-
         if (book.like == "false")
             buttonAdd.text = "Добавить в список желаемого"
         else
