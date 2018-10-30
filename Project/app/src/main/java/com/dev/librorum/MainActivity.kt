@@ -49,14 +49,19 @@ class MainActivity : AppCompatActivity(){
 
         val buttonStart = findViewById<Button>(R.id.sortbtn)
         buttonStart.setOnClickListener{
-            val db = DBWrapper.getInstance(this)
-            if (db.listBooks("%").size>0) {
+            try {
+                val db = DBWrapper.getInstance(this)
+                val dbc = DBCWrapper.getInstance(this)
+
+            if (db.listBooks("%").size>0 && dbc.listCategories("%").size>0) {
                 val intent = Intent(this, Sort::class.java)
                 startActivity(intent)
                 buttonStart.setOnClickListener {
-
                 }
-            }
+                }
+            } catch (e: Exception){
+                               Log.d("Error",e.toString());
+                     }
         }
 
         val prefs = Prefs(this)
