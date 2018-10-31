@@ -84,7 +84,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="1.0"
+        android:gravity="center">
 
         <Button
             android:id="@+id/likebtn"
@@ -106,15 +107,15 @@
             android:text="Не интересно"
             android:textColor="@color/colorAccent" />
 
-        <Button
-            android:id="@+id/addbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@drawable/button_background"
-            android:fontFamily="@font/robotocondensed_regular"
-            android:text="Добавить в список желаемого"
-            android:textColor="@color/colorAccent" />
+        <!--<Button-->
+        <!--android:id="@+id/addbtn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:background="@drawable/button_background"-->
+        <!--android:fontFamily="@font/robotocondensed_regular"-->
+        <!--android:text="Добавить в список желаемого"-->
+        <!--android:textColor="@color/colorAccent" />-->
 
 
     </LinearLayout>

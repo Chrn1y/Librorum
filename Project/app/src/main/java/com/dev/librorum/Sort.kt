@@ -23,7 +23,8 @@ import android.R.attr.y
 import android.R.attr.x
 import android.graphics.Point
 import android.view.Display
-
+import com.dev.librorum.Utils.HEIGHT
+import com.dev.librorum.Utils.WIDTH
 
 
 class Sort : AppCompatActivity() {
@@ -32,7 +33,7 @@ class Sort : AppCompatActivity() {
     private fun ClosedRange<Int>.random() =
             Random().nextInt((endInclusive + 1) - start) +  start
     var index = 0
-
+    var like = true
     val db = DBWrapper.getInstance(this)
     val dbc = DBCWrapper.getInstance(this)
 //    val dataList = db.listBooks("%")
@@ -56,22 +57,17 @@ class Sort : AppCompatActivity() {
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
         categoriesList.shuffle()
-        val buttonAdd = findViewById<Button>(R.id.addbtn)
+//        val buttonAdd = findViewById<Button>(R.id.addbtn)
         val image = findViewById(R.id.imageSort) as ImageView
         val number = dataList.size
         var id = (0..(number-1)).random().toString()
         fun fitPicBook(book:BookData){
-            val display = windowManager.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            val width = size.x
-            val height = size.y
             Picasso.get()
                     .load(book.picture)
 //                .resize(430, 640)
 //                .fit()
 //                .transform(Transformation)
-                    .resize((width/2.8).toInt(), height/3)
+                    .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                     .centerCrop()
                     .into(image)
         }
@@ -113,16 +109,26 @@ class Sort : AppCompatActivity() {
             val values = ContentValues()
             values.put(DBCHandler.NUMBER, ((sum/2)+1).toString())
             dbc.updateCategory(values,dbc.categoryId(book.categoryId))
-
+            if (like == false) {
+                val values = ContentValues()
+                values.put(DBHandler.LIKE, "true")
+                db.updateBook(values, book._id)
+                like = true
+            } else {
+                val values = ContentValues()
+                values.put(DBHandler.LIKE, "false")
+                db.updateBook(values, book._id)
+                like = false
+            }
             id = (0..number).random().toString()
             book =  getBook()
             fitPicBook(book)
             name.text = book.name
             author.text = book.author
             if (book.like == "false")
-                buttonAdd.text = "Добавить в список желаемого"
+                like = false
             else
-                buttonAdd.text = "Убрать из списка желаемого"
+                like = true
         }
 
         val buttonDislike = findViewById<Button>(R.id.dislikebtn)
@@ -141,9 +147,9 @@ class Sort : AppCompatActivity() {
             name.text = book.name
             author.text = book.author
             if (book.like == "false")
-                buttonAdd.text = "Добавить в список желаемого"
+                like = false
             else
-                buttonAdd.text = "Убрать из списка желаемого"
+                like = true
         }
 
         arrow.setOnClickListener{
@@ -154,29 +160,29 @@ class Sort : AppCompatActivity() {
             name.text = book.name
             author.text = book.author
             if (book.like == "false")
-                buttonAdd.text = "Добавить в список желаемого"
+                like = false
             else
-                buttonAdd.text = "Убрать из списка желаемого"
+                like = true
         }
 
         if (book.like == "false")
-            buttonAdd.text = "Добавить в список желаемого"
+            like = false
         else
-            buttonAdd.text = "Убрать из списка желаемого"
+            like = true
 
-        buttonAdd.setOnClickListener() {
-            if (buttonAdd.text == "Добавить в список желаемого") {
-
-                values.put(DBHandler.LIKE, "true")
-                db.updateBook(values, book._id)
-                buttonAdd.text = "Убрать из списка желаемого"
-            } else {
-
-                values.put(DBHandler.LIKE, "false")
-                db.updateBook(values, book._id)
-                buttonAdd.text = "Добавить в список желаемого"
-            }
-        }
+//        buttonAdd.setOnClickListener() {
+//            if (like == false) {
+//
+//                values.put(DBHandler.LIKE, "true")
+//                db.updateBook(values, book._id)
+//                like = true
+//            } else {
+//
+//                values.put(DBHandler.LIKE, "false")
+//                db.updateBook(values, book._id)
+//                like = false
+//            }
+//        }
 
 //        doAsync {
 //            DBWrapper.initDb(applicationContext, resources)

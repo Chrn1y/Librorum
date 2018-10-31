@@ -10,11 +10,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.dev.librorum.Utils.HEIGHT
 import com.dev.librorum.data.DBWrapper
 import org.jetbrains.anko.doAsync
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.dev.librorum.Utils.Prefs
+import com.dev.librorum.Utils.WIDTH
 import com.dev.librorum.data.DBCWrapper
 import com.github.florent37.kotlin.pleaseanimate.please
 import kotlinx.android.synthetic.main.activity_loading.*
@@ -61,6 +63,8 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             display.getSize(size)
             val width = size.x
             val height = size.y
+            HEIGHT = height
+            WIDTH = width
             loadingText.maxWidth = (width * (0.9)).toInt()
             if (prefs.readLoading()) {
                 line = line.dropLast(1)

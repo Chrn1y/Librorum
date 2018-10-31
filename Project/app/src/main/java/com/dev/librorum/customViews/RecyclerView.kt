@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso
 import org.jetbrains.anko.find
 import org.jetbrains.anko.image
 import android.graphics.drawable.Drawable
-
-
+import com.dev.librorum.Utils.HEIGHT
+import com.dev.librorum.Utils.WIDTH
 
 
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {
@@ -44,13 +44,17 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
     inner class Holder(itemView: View?, val itemClick: (BookData) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val image = itemView?.findViewById<ImageView>(R.id.imagePart)
         val text = itemView?.findViewById<TextView>(R.id.textPart)
+        val author = itemView?.findViewById<TextView>(R.id.authorPart)
 
         fun bindCategory(book : BookData, context: Context ){
             text?.text = book.name
+            author?.text = book.author
             Picasso.get()
                     .load(book.picture)
-                    .resize(430, 640)
-                    //.fit()
+//                .resize(430, 640)
+//                .fit()
+//                .transform(Transformation)
+                    .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                     .centerCrop()
                     .into(image)
             itemView.setOnClickListener { itemClick(book) }
@@ -81,13 +85,16 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>, val
     inner class Holder(itemView: View?, val itemClick: (BookData) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val image = itemView?.findViewById<ImageView>(R.id.imagePart)
         val text = itemView?.findViewById<TextView>(R.id.textPart)
-
+        val author = itemView?.findViewById<TextView>(R.id.authorPart)
         fun bindCategory(book : BookData, context: Context ){
             text?.text = book.name
+            author?.text = book.author
             Picasso.get()
                     .load(book.picture)
-                    .resize(290, 400)
-                    //.fit()
+//                .resize(430, 640)
+//                .fit()
+//                .transform(Transformation)
+                    .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                     .centerCrop()
                     .into(image)
             itemView.setOnClickListener { itemClick(book) }

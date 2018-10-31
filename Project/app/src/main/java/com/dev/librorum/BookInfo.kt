@@ -13,6 +13,8 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.view.View
 import android.widget.Button
+import com.dev.librorum.Utils.HEIGHT
+import com.dev.librorum.Utils.WIDTH
 import com.dev.librorum.data.DBCWrapper
 import com.dev.librorum.data.DBHandler
 import org.jetbrains.anko.doAsync
@@ -47,8 +49,10 @@ class BookInfo : AppCompatActivity() {
 
         Picasso.get()
                 .load(book.picture)
-                .resize(430, 640)
-                //.fit()
+//                .resize(430, 640)
+//                .fit()
+//                .transform(Transformation)
+                .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                 .centerCrop()
                 .into(image)
 
