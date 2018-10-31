@@ -39,8 +39,10 @@ class Sort : AppCompatActivity() {
     var categoriesList = dbc.listCategories("%")
     fun getBook():BookData{
 
-        if (index+1 == categoriesList.size)
+        if (index+1 == categoriesList.size) {
             index = 0
+            categoriesList.shuffle()
+        }
         else
             index++
         Log.d("Librorum", index.toString())
@@ -53,6 +55,7 @@ class Sort : AppCompatActivity() {
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.listBooks("%")
         var categoriesList = dbc.listCategories("%")
+        categoriesList.shuffle()
         val buttonAdd = findViewById<Button>(R.id.addbtn)
         val image = findViewById(R.id.imageSort) as ImageView
         val number = dataList.size

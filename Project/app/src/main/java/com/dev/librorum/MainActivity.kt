@@ -25,109 +25,124 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+        try {
+            val buttonRecommend = findViewById<Button>(R.id.recombtn)
+            buttonRecommend.setOnClickListener {
+                try {
+                    val intent = Intent(this, Recommended::class.java)
+                    startActivity(intent)
+                    buttonRecommend.setOnClickListener {
 
-        val buttonRecommend = findViewById<Button>(R.id.recombtn)
-        buttonRecommend.setOnClickListener{
-            try {
-                val intent = Intent(this, Recommended::class.java)
+                    }
+                } catch (e: Exception) {
+                    Log.d("Error", e.toString())
+                }
+            }
+
+            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+            buttonSorted.setOnClickListener {
+
+                val intent = Intent(this, Sorted::class.java)
                 startActivity(intent)
-                buttonRecommend.setOnClickListener {
+
+                buttonSorted.setOnClickListener {
 
                 }
-            } catch(e: Exception){
-                Log.d("Error",e.toString())
+            }
+
+            val buttonStart = findViewById<Button>(R.id.sortbtn)
+            buttonStart.setOnClickListener {
+                try {
+                    val db = DBWrapper.getInstance(this)
+                    val dbc = DBCWrapper.getInstance(this)
+
+                    if (db.listBooks("%").size > 0 && dbc.listCategories("%").size > 0) {
+                        val intent = Intent(this, Sort::class.java)
+                        startActivity(intent)
+                        buttonStart.setOnClickListener {
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.d("Error", e.toString());
+                }
+            }
+
+            val prefs = Prefs(this)
+            info.setOnClickListener {
+                prefs.wannaReadLoading()
+                val intent = Intent(this, Loading::class.java)
+                startActivity(intent)
+            }
+
+            doAsync {
+                DBWrapper.initDb(applicationContext, resources)
+
             }
         }
+        catch (e: Exception){
 
-        val buttonSorted = findViewById<Button>(R.id.sortedbtn)
-        buttonSorted.setOnClickListener{
+            Log.d("Librorum", e.toString())
 
-            val intent = Intent(this, Sorted::class.java)
-            startActivity(intent)
-
-            buttonSorted.setOnClickListener{
-
-            }
-        }
-
-        val buttonStart = findViewById<Button>(R.id.sortbtn)
-        buttonStart.setOnClickListener{
-            try {
-                val db = DBWrapper.getInstance(this)
-                val dbc = DBCWrapper.getInstance(this)
-
-            if (db.listBooks("%").size>0 && dbc.listCategories("%").size>0) {
-                val intent = Intent(this, Sort::class.java)
-                startActivity(intent)
-                buttonStart.setOnClickListener {
-                }
-                }
-            } catch (e: Exception){
-                               Log.d("Error",e.toString());
-                     }
-        }
-
-        val prefs = Prefs(this)
-        info.setOnClickListener{
-            prefs.wannaReadLoading()
-            val intent = Intent(this, Loading::class.java)
-            startActivity(intent)
-        }
-
-        doAsync {
-            DBWrapper.initDb(applicationContext, resources)
-
+            startActivity(Intent(this@MainActivity, MainActivity::class.java))
         }
     }
 
 
     override fun onResume() {
         super.onResume()
-        val buttonRecommend = findViewById<Button>(R.id.recombtn)
-        buttonRecommend.setOnClickListener{
-            try {
-                val intent = Intent(this, Recommended::class.java)
-                startActivity(intent)
-                buttonRecommend.setOnClickListener {
-
-                }
-            } catch(e: Exception){
-                Log.d("Error",e.toString())
-            }
-        }
-
-        val buttonSorted = findViewById<Button>(R.id.sortedbtn)
-        buttonSorted.setOnClickListener{
-
-            val intent = Intent(this, Sorted::class.java)
-            startActivity(intent)
-
-            buttonSorted.setOnClickListener{
-
-            }
-        }
-
-        val buttonStart = findViewById<Button>(R.id.sortbtn)
-        buttonStart.setOnClickListener{
-            try {
-                val db = DBWrapper.getInstance(this)
-                val dbc = DBCWrapper.getInstance(this)
-
-                if (db.listBooks("%").size>0 && dbc.listCategories("%").size>0) {
-                    val intent = Intent(this, Sort::class.java)
+        try {
+            val buttonRecommend = findViewById<Button>(R.id.recombtn)
+            buttonRecommend.setOnClickListener {
+                try {
+                    val intent = Intent(this, Recommended::class.java)
                     startActivity(intent)
-                    buttonStart.setOnClickListener {
+                    buttonRecommend.setOnClickListener {
+
                     }
+                } catch (e: Exception) {
+                    Log.d("Error", e.toString())
                 }
-            } catch (e: Exception){
-                Log.d("Error",e.toString())
             }
-        }
+
+            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+            buttonSorted.setOnClickListener {
+
+                val intent = Intent(this, Sorted::class.java)
+                startActivity(intent)
+
+                buttonSorted.setOnClickListener {
+
+                }
+            }
+
+            val buttonStart = findViewById<Button>(R.id.sortbtn)
+            buttonStart.setOnClickListener {
+                try {
+                    val db = DBWrapper.getInstance(this)
+                    val dbc = DBCWrapper.getInstance(this)
+
+                    if (db.listBooks("%").size > 0 && dbc.listCategories("%").size > 0) {
+                        val intent = Intent(this, Sort::class.java)
+                        startActivity(intent)
+                        buttonStart.setOnClickListener {
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.d("Error", e.toString())
+                }
+            }
 //
 //        doAsync {
 //            DBWrapper.initDb(applicationContext, resources)
 //        }
+        }catch (e: Exception){
+
+            Log.d("Librorum", e.toString())
+
+            startActivity(Intent(this@MainActivity, MainActivity::class.java))
+        }
     }
+
     override fun onBackPressed() {
 
     }

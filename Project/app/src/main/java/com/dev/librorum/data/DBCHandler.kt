@@ -29,7 +29,7 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
 
     override fun onCreate(currentDB: SQLiteDatabase?) { // Вызывается при генерации БД
 
-        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TYPE TEXT, $NUMBER TEXT);"
+        val sql1 = "CREATE TABLE IF NOT EXISTS $TABLE_NAME ( $ID  INTEGER PRIMARY KEY, $TYPE TEXT UNIQUE, $NUMBER TEXT);"
         currentDB!!.execSQL(sql1)
     }
 
@@ -107,18 +107,15 @@ class DBCWrapper private constructor() {
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
-            getInstance(ctx)
-            val db = DBWrapper.getInstance(ctx)
+            dbc = getInstance(ctx)
             val dataList = dbc!!.listCategories("%")
             val inputStream = resources.openRawResource(R.raw.cat)
 
             val categoryList = BufferedReader(InputStreamReader(inputStream)).readLines()
             if (dataList.size == 0 ) {
-                for (temp in dataList) {
-                    dbc!!.removeCategory(temp._id)
-                }
-                val values = ContentValues()
                 categoryList.forEach {
+
+                    val values = ContentValues()
                     values.put(DBCHandler.TYPE, it)
                     values.put(DBCHandler.NUMBER, "0")
 
