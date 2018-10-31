@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.dev.librorum.data.DBWrapper
 import org.jetbrains.anko.doAsync
@@ -48,6 +50,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 //                or Intent.FLAG_ACTIVITY_CLEAR_TASK
 //                or Intent.FLAG_ACTIVITY_NEW_TASK)
+
             val prefs = Prefs(this)
             val inputStream = resources.openRawResource(R.raw.loading)
             var line = BufferedReader(InputStreamReader(inputStream)).readLines()
@@ -63,7 +66,8 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                 line = line.dropLast(1)
 //            toast("welldone")
             }
-
+            imageLoading.layoutParams.width = (width*0.4).toInt()
+            imageLoading.layoutParams.height = (height*0.4).toInt()
             if (prefs.firstTime() != true && prefs.readLoading() != true) {
                 startActivity(Intent(this@Loading, MainActivity::class.java))
                 prefs.finishedReadingLoading()
@@ -97,6 +101,30 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                     prefs.finishedReadingLoading()
                     prefs.notFirstTime()
                 }
+
+                if(number == 3 ||number == 4 /*||number == 8*/ /*||number == 11*/ ||number == 14 ) {
+                    imageLoading.setImageResource(R.drawable.p257)
+                    imageLoading.visibility = View.VISIBLE
+//                    toast("OMG")
+                }
+                else if (number == 5 ||number == 6 ||number == 7) {
+                    imageLoading.setImageResource(R.drawable.p967)
+                    imageLoading.visibility = View.VISIBLE
+                }
+                else if (number == 8) {
+                    imageLoading.setImageResource(R.drawable.p970)
+                    imageLoading.visibility = View.VISIBLE
+                }
+                else if (number == 9 || number == 10) {
+                    imageLoading.setImageResource(R.drawable.p979)
+                    imageLoading.visibility = View.VISIBLE
+                }
+                else if (number == 11 ||number == 12 ||number == 13){
+                    imageLoading.setImageResource(R.drawable.p451)
+                    imageLoading.visibility = View.VISIBLE
+                    }
+                else if(number == 1 ||number == 2 ||number == 15)
+                    imageLoading.visibility = View.INVISIBLE
             }
 
             val skip = findViewById<Button>(R.id.buttonSkip)
