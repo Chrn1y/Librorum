@@ -99,7 +99,6 @@
                 android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="@color/colorAccent"
-
                 />
 
 
@@ -119,7 +118,6 @@
                 android:background="@drawable/button_background"
                 android:fontFamily="@font/robotocondensed_regular"
                 android:textColor="@color/colorAccent"
-
                 />
 
         </LinearLayout>

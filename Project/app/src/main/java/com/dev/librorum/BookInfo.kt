@@ -33,8 +33,6 @@ class BookInfo : AppCompatActivity() {
         val db = DBWrapper.getInstance(this)
         val bookID = intent.getStringExtra(EXTRA_ID)
         val book =  db.listBooks(bookID)[0]
-        val dbc = DBCWrapper.getInstance(this)
-        val test = dbc.listCategories("%")
 
         val name = findViewById(R.id.nameInfo) as TextView
         name.text = book.name
@@ -49,9 +47,6 @@ class BookInfo : AppCompatActivity() {
 
         Picasso.get()
                 .load(book.picture)
-//                .resize(430, 640)
-//                .fit()
-//                .transform(Transformation)
                 .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                 .centerCrop()
                 .into(image)

@@ -27,14 +27,12 @@ class Recommended : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_recommended)
-//        val textSorted = findViewById<TextView>(R.id.textSorted)
         val textRecom = findViewById<TextView>(R.id.textRecom)
         textRecom.text = ""
         if (dataList.size == 0)
             textRecom.text = "Ваш список рекомендаций пока пуст"
         else
             textRecom.text = ""
-        toast(db.listBooks("%").size.toString())
         adapter = RecyclerRecommended(this, dataList) { bookData ->
 
             val intent = Intent(this, BookInfo::class.java)

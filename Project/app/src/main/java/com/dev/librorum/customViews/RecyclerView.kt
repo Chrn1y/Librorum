@@ -51,9 +51,6 @@ class RecyclerRecommended(val context : Context, val recommended: List<BookData>
             author?.text = book.author
             Picasso.get()
                     .load(book.picture)
-//                .resize(430, 640)
-//                .fit()
-//                .transform(Transformation)
                     .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                     .centerCrop()
                     .into(image)
@@ -91,9 +88,6 @@ class RecyclerSorted(val context : Context, val recommended: List<BookData>, val
             author?.text = book.author
             Picasso.get()
                     .load(book.picture)
-//                .resize(430, 640)
-//                .fit()
-//                .transform(Transformation)
                     .resize((WIDTH /2.8).toInt(), (HEIGHT /2.8).toInt())
                     .centerCrop()
                     .into(image)

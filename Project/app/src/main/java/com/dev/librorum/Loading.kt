@@ -47,12 +47,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
         try {
-//        val intent = Intent(this, Loading::class.java)
-//
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                or Intent.FLAG_ACTIVITY_NEW_TASK)
-
             val prefs = Prefs(this)
             val inputStream = resources.openRawResource(R.raw.loading)
             var line = BufferedReader(InputStreamReader(inputStream)).readLines()
@@ -68,7 +62,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             loadingText.maxWidth = (width * (0.9)).toInt()
             if (prefs.readLoading()) {
                 line = line.dropLast(1)
-//            toast("welldone")
             }
             imageLoading.layoutParams.width = (width*0.4).toInt()
             imageLoading.layoutParams.height = (height*0.4).toInt()
@@ -78,7 +71,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             }
 
             if (prefs.readLoading() != true) {
-//            toast("YOUFUCKEDUPAGAIN")
                 doAsync {
                     DBCWrapper.initDb(applicationContext, resources)
                     DBWrapper.registerCallback(this@Loading, "Loading")
@@ -90,7 +82,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                         prefs.finishedReadingLoading()
                         prefs.notFirstTime()
                     }
-//            DBWrapper.initDb(applicationContext, resources)
                 }
             }
 
@@ -135,6 +126,8 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             skip.setOnClickListener {
                 number = line.size - 1
                 changename(line[number])
+                imageLoading.setImageResource(R.drawable.p257)
+                imageLoading.visibility = View.VISIBLE
             }
             changename(line[number - 1])
         }

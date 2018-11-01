@@ -75,10 +75,6 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
         return loadListFromDB(key, ID)
     }
 
-    fun findCategory (key: String): CategoryData {
-        return loadListFromDB(key, ID)[0]
-    }
-
     fun categoryId (key: String): Int{
         return loadListFromDB(key, TYPE)[0]._id
     }
@@ -87,7 +83,6 @@ class DBCHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB
 
 class DBCWrapper private constructor() {
     companion object {
-//        private var listeners: MutableMap<String, DbInteraction> = mutableMapOf()
         private var dbc: DBCHandler? = null
 
         @JvmStatic
@@ -97,13 +92,6 @@ class DBCWrapper private constructor() {
 
             return dbc!!
         }
-
-//        @JvmStatic
-//        fun registerCallback(ctx: Context, key: String) {
-//            listeners[key] = ctx as DbInteraction
-//
-//        }
-
 
         @JvmStatic
         fun initDb(ctx: Context, resources: Resources) {
@@ -123,14 +111,8 @@ class DBCWrapper private constructor() {
                 }
 
             }
-//            ctx.runOnUiThread {
-//                listeners.forEach { it.value.onDbLoaded() }
-//            }
             Log.d("Librorum", "Successfully loaded db")
         }
     }
 
-//    interface DbInteraction {
-//        fun onDbLoaded()
-//    }
 }

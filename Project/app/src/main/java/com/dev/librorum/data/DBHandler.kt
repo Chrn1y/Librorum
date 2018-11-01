@@ -90,10 +90,6 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
         return loadListFromDB("true", LIKE)
     }
 
-    fun findBook (key: String): BookData {
-        return loadListFromDB(key, ID)[0]
-    }
-
     fun getRandomCatBook(dbc : DBCHandler, index: Int): BookData{
         val categories = dbc.listCategories("%")
         val category = categories[index].type
@@ -106,16 +102,12 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_
             list = loadListFromDB("%", ID)
             ind = (0..(list.size - 1)).random()
         }
-//        Log.d("Librorum","book id: " + ind)
         return list[ind]
     }
 
 
     private fun ClosedRange<Int>.random() =
             Random().nextInt((endInclusive + 1) - start) +  start
-
-
-
 
     fun getLargestCat(dbc : DBCHandler) : ArrayList<BookData>{
         val categories = dbc.listCategories("%")
@@ -193,17 +185,12 @@ class DBWrapper private constructor() {
                     values.put(DBHandler.LIKE, "false")
                     db!!.addBook(values)
                 }
-//                DBCWrapper.initDb(ctx)
             }
-//            ctx.runOnUiThread {
-//                listeners.forEach { it.value.onDbLoaded() }
-//            }
 
         }
     }
 
     interface DbInteraction {
-//        fun onDbLoaded()
         fun onFileReaded()
     }
 }

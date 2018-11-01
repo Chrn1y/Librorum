@@ -107,17 +107,6 @@
             android:text="Не интересно"
             android:textColor="@color/colorAccent" />
 
-        <!--<Button-->
-        <!--android:id="@+id/addbtn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="15dp"-->
-        <!--android:background="@drawable/button_background"-->
-        <!--android:fontFamily="@font/robotocondensed_regular"-->
-        <!--android:text="Добавить в список желаемого"-->
-        <!--android:textColor="@color/colorAccent" />-->
-
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

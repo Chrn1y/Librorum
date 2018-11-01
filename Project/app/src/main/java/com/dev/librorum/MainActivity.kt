@@ -131,10 +131,6 @@ class MainActivity : AppCompatActivity(){
                     Log.d("Error", e.toString())
                 }
             }
-//
-//        doAsync {
-//            DBWrapper.initDb(applicationContext, resources)
-//        }
         }catch (e: Exception){
 
             Log.d("Librorum", e.toString())
