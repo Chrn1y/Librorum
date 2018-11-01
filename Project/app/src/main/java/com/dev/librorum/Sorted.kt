@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
@@ -18,68 +19,79 @@ import kotlinx.android.synthetic.main.activity_recommended.*
 import kotlinx.android.synthetic.main.activity_sorted.*
 import org.jetbrains.anko.doAsync
 
-class Sorted : AppCompatActivity(){
+class Sorted : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lateinit var adapter : RecyclerSorted
-
-        val db = DBWrapper.getInstance(this)
-        val dataList = db.listLikes()
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorted)
+        try {
+            lateinit var adapter: RecyclerSorted
+            val db = DBWrapper.getInstance(this)
+            val dataList = db.listLikes()
+            val textSorted = findViewById<TextView>(R.id.textSorted)
 
-        val textSorted = findViewById<TextView>(R.id.textSorted)
+            if (dataList.size == 0)
+                textSorted.text = "Ваш список желаемого пуст"
+            else
+                textSorted.text = ""
 
-        if (dataList.size == 0)
-            textSorted.text = "Ваш список желаемого пуст"
-        else
-        textSorted.text = ""
+            adapter = RecyclerSorted(this, dataList) { bookData ->
 
-        adapter = RecyclerSorted(this, dataList) {bookData ->
+                val intent = Intent(this, BookInfo::class.java)
+                intent.putExtra(EXTRA_ID, bookData._id.toString())
+                startActivity(intent)
 
-            val intent = Intent(this, BookInfo::class.java)
-            intent.putExtra(EXTRA_ID, bookData._id.toString())
-            startActivity(intent)
+            }
+            SortedList.adapter = adapter
 
+            val layoutManager = LinearLayoutManager(this)
+
+            SortedList.layoutManager = layoutManager
+            SortedList.setHasFixedSize(true)
+            SortedList.addItemDecoration(SimpleDividerItemDecoration(
+                    getApplicationContext()
+            ))
+        } catch (e: Exception) {
+
+            Log.d("Librorum", e.toString())
+            startActivity(Intent(this@Sorted, Sorted::class.java))
         }
-        SortedList.adapter = adapter
-
-        val layoutManager = LinearLayoutManager(this)
-
-        SortedList.layoutManager = layoutManager
-        SortedList.setHasFixedSize(true)
-        SortedList.addItemDecoration(SimpleDividerItemDecoration(
-                getApplicationContext()
-        ))
-
     }
 
     override fun onResume() {
         super.onResume()
-        lateinit var adapter : RecyclerSorted
-        val db = DBWrapper.getInstance(this)
-        val dataList = db.listLikes()
+        try {
+            lateinit var adapter: RecyclerSorted
+            val db = DBWrapper.getInstance(this)
+            val dataList = db.listLikes()
 
-        val textSorted = findViewById<TextView>(R.id.textSorted)
-        if (dataList.size == 0)
-            textSorted.text = "Ваш список желаемого пуст"
-        else
-            textSorted.text = ""
-        adapter = RecyclerSorted(this, dataList) {bookData ->
+            val textSorted = findViewById<TextView>(R.id.textSorted)
+            if (dataList.size == 0)
+                textSorted.text = "Ваш список желаемого пуст"
+            else
+                textSorted.text = ""
+            adapter = RecyclerSorted(this, dataList) { bookData ->
 
-            val intent = Intent(this, BookInfo::class.java)
-            intent.putExtra(EXTRA_ID, bookData._id.toString())
-            startActivity(intent)
+                val intent = Intent(this, BookInfo::class.java)
+                intent.putExtra(EXTRA_ID, bookData._id.toString())
+                startActivity(intent)
 
+            }
+            SortedList.adapter = adapter
+
+            val layoutManager = LinearLayoutManager(this)
+
+            SortedList.layoutManager = layoutManager
+            SortedList.setHasFixedSize(true)
+            SortedList.addItemDecoration(SimpleDividerItemDecoration(
+                    getApplicationContext()
+            ))
+
+        } catch (e: Exception) {
+
+            Log.d("Librorum", e.toString())
+            startActivity(Intent(this@Sorted, Sorted::class.java))
         }
-        SortedList.adapter = adapter
-
-        val layoutManager = LinearLayoutManager(this)
-
-        SortedList.layoutManager = layoutManager
-        SortedList.setHasFixedSize(true)
-
     }
 }

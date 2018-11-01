@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.widget.TextView
 import com.dev.librorum.Utils.EXTRA_ID
 import com.dev.librorum.customViews.RecyclerRecommended
@@ -25,29 +26,34 @@ class Recommended : AppCompatActivity() {
         val dbc = DBCWrapper.getInstance(this)
         val dataList = db.getLargestCat(dbc)
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_recommended)
-        val textRecom = findViewById<TextView>(R.id.textRecom)
-        textRecom.text = ""
-        if (dataList.size == 0)
-            textRecom.text = "Ваш список рекомендаций пока пуст"
-        else
+        try {
+            val textRecom = findViewById<TextView>(R.id.textRecom)
             textRecom.text = ""
-        adapter = RecyclerRecommended(this, dataList) { bookData ->
+            if (dataList.size == 0)
+                textRecom.text = "Ваш список рекомендаций пока пуст"
+            else
+                textRecom.text = ""
+            adapter = RecyclerRecommended(this, dataList) { bookData ->
 
-            val intent = Intent(this, BookInfo::class.java)
-            intent.putExtra(EXTRA_ID, bookData._id.toString())
-            startActivity(intent)
+                val intent = Intent(this, BookInfo::class.java)
+                intent.putExtra(EXTRA_ID, bookData._id.toString())
+                startActivity(intent)
 
+            }
+            RecommendedList.adapter = adapter
+
+            val layoutManager = LinearLayoutManager(this)
+
+            RecommendedList.layoutManager = layoutManager
+            RecommendedList.setHasFixedSize(true)
+            RecommendedList.addItemDecoration(SimpleDividerItemDecoration(
+                    getApplicationContext()
+            ))
+        } catch (e : Exception){
+
+            Log.d("Librorum", e.toString())
+            startActivity(Intent(this@Recommended, Recommended::class.java))
         }
-        RecommendedList.adapter = adapter
-
-        val layoutManager = LinearLayoutManager(this)
-
-        RecommendedList.layoutManager = layoutManager
-        RecommendedList.setHasFixedSize(true)
-        RecommendedList.addItemDecoration(SimpleDividerItemDecoration(
-                getApplicationContext()
-                ))
     }
 }
