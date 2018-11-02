@@ -50,7 +50,7 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             display.getSize(size)
             val width = size.x
             val height = size.y
-
+            var originNumber = line.size
             HEIGHT = height
             WIDTH = width
             loadingText.maxWidth = (width * (0.9)).toInt()
@@ -114,15 +114,24 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                     imageLoading.setImageResource(R.drawable.p451)
                     imageLoading.visibility = View.VISIBLE
                     }
-                else if(number == 1 ||number == 2 ||number == 15)
+                else if(number == 1 ||number == 2 ||number >= 15)
                     imageLoading.visibility = View.INVISIBLE
             }
 
             skip.setOnClickListener {
                 number = line.size - 1
                 changename(line[number])
-                imageLoading.setImageResource(R.drawable.p257)
-                imageLoading.visibility = View.VISIBLE
+
+                if (originNumber == line.size)
+                    imageLoading.visibility = View.INVISIBLE
+
+                else {
+
+                    imageLoading.setImageResource(R.drawable.p257)
+                    imageLoading.visibility = View.VISIBLE
+
+                }
+
             }
             changename(line[number - 1])
         }
