@@ -17,6 +17,7 @@ import com.dev.librorum.data.DBWrapper
 class Recommended : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        try {
         lateinit var adapter: RecyclerRecommended
         val db = DBWrapper.getInstance(this)
         val dbc = DBCWrapper.getInstance(this)
@@ -24,7 +25,6 @@ class Recommended : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
 
-        try {
             val textRecom = findViewById<TextView>(R.id.textRecom)
             textRecom.text = ""
 
