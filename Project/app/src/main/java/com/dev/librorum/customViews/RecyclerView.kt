@@ -11,14 +11,11 @@ import android.widget.TextView
 import com.dev.librorum.R
 import com.dev.librorum.data.BookData
 import com.dev.librorum.data.DBCWrapper
-import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.find
-import org.jetbrains.anko.image
 import android.graphics.drawable.Drawable
-import com.dev.librorum.Utils.HEIGHT
-import com.dev.librorum.Utils.WIDTH
+import com.dev.librorum.utils.HEIGHT
+import com.dev.librorum.utils.WIDTH
 
 
 class RecyclerRecommended(val context : Context, val recommended: List<BookData>, val itemClick: (BookData) -> Unit) : RecyclerView.Adapter<RecyclerRecommended.Holder>() {

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
 import android.util.Log
-import com.dev.librorum.Utils.Prefs
+import com.dev.librorum.utils.Prefs
 import com.dev.librorum.R
 import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader

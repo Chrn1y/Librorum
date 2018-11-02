@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="sensorPortrait">
-        <activity android:name=".Loading"
+        <activity android:name=".activities.Loading"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action
@@ -23,15 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Recommended"
+        <activity android:name=".activities.Recommended"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".activities.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Sorted"
+        <activity android:name=".activities.Sorted"
             android:screenOrientation="portrait"/>
-        <activity android:name=".BookInfo"
+        <activity android:name=".activities.BookInfo"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Sort"
+        <activity android:name=".activities.Sort"
             android:screenOrientation="portrait"/>
     </application>
 

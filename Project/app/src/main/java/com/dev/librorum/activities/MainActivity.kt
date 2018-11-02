@@ -1,35 +1,30 @@
-package com.dev.librorum
+package com.dev.librorum.activities
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.design.widget.BottomNavigationView
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import com.dev.librorum.Utils.Prefs
+import android.widget.ImageView
+import com.dev.librorum.R
+import com.dev.librorum.utils.Prefs
 import com.dev.librorum.data.DBCWrapper
-import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
         try {
             val buttonRecommend = findViewById<Button>(R.id.recombtn)
+            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+            val buttonStart = findViewById<Button>(R.id.sortbtn)
+
             buttonRecommend.setOnClickListener {
                 try {
-                    val intent = Intent(this, Recommended::class.java)
+                    val intent = Intent(this@MainActivity, Recommended::class.java)
                     startActivity(intent)
                     buttonRecommend.setOnClickListener {
 
@@ -39,10 +34,9 @@ class MainActivity : AppCompatActivity(){
                 }
             }
 
-            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
             buttonSorted.setOnClickListener {
 
-                val intent = Intent(this, Sorted::class.java)
+                val intent = Intent(this@MainActivity, Sorted::class.java)
                 startActivity(intent)
 
                 buttonSorted.setOnClickListener {
@@ -50,14 +44,13 @@ class MainActivity : AppCompatActivity(){
                 }
             }
 
-            val buttonStart = findViewById<Button>(R.id.sortbtn)
             buttonStart.setOnClickListener {
                 try {
                     val db = DBWrapper.getInstance(this)
                     val dbc = DBCWrapper.getInstance(this)
 
                     if (db.listBooks("%").size > 0 && dbc.listCategories("%").size > 0) {
-                        val intent = Intent(this, Sort::class.java)
+                        val intent = Intent(this@MainActivity, Sort::class.java)
                         startActivity(intent)
                         buttonStart.setOnClickListener {
                         }
@@ -68,9 +61,10 @@ class MainActivity : AppCompatActivity(){
             }
 
             val prefs = Prefs(this)
+            val info = findViewById<ImageView>(R.id.info)
             info.setOnClickListener {
                 prefs.wannaReadLoading()
-                val intent = Intent(this, Loading::class.java)
+                val intent = Intent(this@MainActivity, Loading::class.java)
                 startActivity(intent)
             }
 
@@ -91,10 +85,14 @@ class MainActivity : AppCompatActivity(){
     override fun onResume() {
         super.onResume()
         try {
+
+            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
+            val buttonStart = findViewById<Button>(R.id.sortbtn)
             val buttonRecommend = findViewById<Button>(R.id.recombtn)
+
             buttonRecommend.setOnClickListener {
                 try {
-                    val intent = Intent(this, Recommended::class.java)
+                    val intent = Intent(this@MainActivity, Recommended::class.java)
                     startActivity(intent)
                     buttonRecommend.setOnClickListener {
 
@@ -104,10 +102,9 @@ class MainActivity : AppCompatActivity(){
                 }
             }
 
-            val buttonSorted = findViewById<Button>(R.id.sortedbtn)
             buttonSorted.setOnClickListener {
 
-                val intent = Intent(this, Sorted::class.java)
+                val intent = Intent(this@MainActivity, Sorted::class.java)
                 startActivity(intent)
 
                 buttonSorted.setOnClickListener {
@@ -115,14 +112,13 @@ class MainActivity : AppCompatActivity(){
                 }
             }
 
-            val buttonStart = findViewById<Button>(R.id.sortbtn)
             buttonStart.setOnClickListener {
                 try {
                     val db = DBWrapper.getInstance(this)
                     val dbc = DBCWrapper.getInstance(this)
 
                     if (db.listBooks("%").size > 0 && dbc.listCategories("%").size > 0) {
-                        val intent = Intent(this, Sort::class.java)
+                        val intent = Intent(this@MainActivity, Sort::class.java)
                         startActivity(intent)
                         buttonStart.setOnClickListener {
                         }
@@ -134,7 +130,6 @@ class MainActivity : AppCompatActivity(){
         }catch (e: Exception){
 
             Log.d("Librorum", e.toString())
-
             startActivity(Intent(this@MainActivity, MainActivity::class.java))
         }
     }

@@ -1,4 +1,4 @@
-package com.dev.librorum.Utils
+package com.dev.librorum.utils
 
 import android.content.Context
 

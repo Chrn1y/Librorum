@@ -1,22 +1,18 @@
-package com.dev.librorum
+package com.dev.librorum.activities
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.TextView
-import com.dev.librorum.Utils.EXTRA_ID
+import com.dev.librorum.R
+import com.dev.librorum.utils.EXTRA_ID
 import com.dev.librorum.customViews.RecyclerRecommended
 import com.dev.librorum.customViews.SimpleDividerItemDecoration
 import com.dev.librorum.data.DBCWrapper
-import com.dev.librorum.data.DBHandler
 import com.dev.librorum.data.DBWrapper
-import kotlinx.android.synthetic.main.activity_recommended.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
 
 class Recommended : AppCompatActivity() {
 
@@ -27,33 +23,36 @@ class Recommended : AppCompatActivity() {
         val dataList = db.getLargestCat(dbc)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recommended)
+
         try {
             val textRecom = findViewById<TextView>(R.id.textRecom)
             textRecom.text = ""
+
             if (dataList.size == 0)
                 textRecom.text = "Ваш список рекомендаций пока пуст"
             else
                 textRecom.text = ""
+
             adapter = RecyclerRecommended(this, dataList) { bookData ->
 
-                val intent = Intent(this, BookInfo::class.java)
+                val intent = Intent(this@Recommended, BookInfo::class.java)
                 intent.putExtra(EXTRA_ID, bookData._id.toString())
                 startActivity(intent)
 
             }
-            RecommendedList.adapter = adapter
-
+            val recommendedList = findViewById<RecyclerView>(R.id.recommendedList)
+            recommendedList.adapter = adapter
             val layoutManager = LinearLayoutManager(this)
-
-            RecommendedList.layoutManager = layoutManager
-            RecommendedList.setHasFixedSize(true)
-            RecommendedList.addItemDecoration(SimpleDividerItemDecoration(
+            recommendedList.layoutManager = layoutManager
+            recommendedList.setHasFixedSize(true)
+            recommendedList.addItemDecoration(SimpleDividerItemDecoration(
                     getApplicationContext()
             ))
         } catch (e : Exception){
 
             Log.d("Librorum", e.toString())
             startActivity(Intent(this@Recommended, Recommended::class.java))
+
         }
     }
 }

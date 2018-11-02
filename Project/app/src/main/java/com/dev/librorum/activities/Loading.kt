@@ -1,4 +1,4 @@
-package com.dev.librorum
+package com.dev.librorum.activities
 
 import android.content.Intent
 import android.graphics.Point
@@ -10,19 +10,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.dev.librorum.Utils.HEIGHT
+import com.dev.librorum.R
+import com.dev.librorum.utils.HEIGHT
 import com.dev.librorum.data.DBWrapper
 import org.jetbrains.anko.doAsync
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import com.dev.librorum.Utils.Prefs
-import com.dev.librorum.Utils.WIDTH
+import com.dev.librorum.utils.Prefs
+import com.dev.librorum.utils.WIDTH
 import com.dev.librorum.data.DBCWrapper
-import com.github.florent37.kotlin.pleaseanimate.please
-import kotlinx.android.synthetic.main.activity_loading.*
-import kotlinx.coroutines.experimental.delay
-import org.jetbrains.anko.themedImageSwitcher
-import org.jetbrains.anko.toast
 
 
 class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
@@ -33,14 +29,8 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                 name.text = text
     }
 
-
-//    override fun onDbLoaded() {
-//
-//    }
-
     override fun onFileReaded() {
         flag = true
-//        toast("Все готово")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,21 +40,28 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
             val prefs = Prefs(this)
             val inputStream = resources.openRawResource(R.raw.loading)
             var line = BufferedReader(InputStreamReader(inputStream)).readLines()
+            val imageLoading = findViewById<ImageView>(R.id.imageLoading)
+            val loadingText = findViewById<TextView>(R.id.loadingText)
             var number = 1
             val tap = findViewById<ConstraintLayout>(R.id.nextText)
             val display = windowManager.defaultDisplay
             val size = Point()
+            val skip = findViewById<Button>(R.id.buttonSkip)
             display.getSize(size)
             val width = size.x
             val height = size.y
+
             HEIGHT = height
             WIDTH = width
             loadingText.maxWidth = (width * (0.9)).toInt()
+
             if (prefs.readLoading()) {
                 line = line.dropLast(1)
             }
+
             imageLoading.layoutParams.width = (width*0.4).toInt()
             imageLoading.layoutParams.height = (height*0.4).toInt()
+
             if (prefs.firstTime() != true && prefs.readLoading() != true) {
                 startActivity(Intent(this@Loading, MainActivity::class.java))
                 prefs.finishedReadingLoading()
@@ -97,10 +94,9 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                     prefs.notFirstTime()
                 }
 
-                if(number == 3 ||number == 4 /*||number == 8*/ /*||number == 11*/ ||number == 14 ) {
+                if(number == 3 ||number == 4 ||number == 14 ) {
                     imageLoading.setImageResource(R.drawable.p257)
                     imageLoading.visibility = View.VISIBLE
-//                    toast("OMG")
                 }
                 else if (number == 5 ||number == 6 ||number == 7) {
                     imageLoading.setImageResource(R.drawable.p967)
@@ -122,7 +118,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
                     imageLoading.visibility = View.INVISIBLE
             }
 
-            val skip = findViewById<Button>(R.id.buttonSkip)
             skip.setOnClickListener {
                 number = line.size - 1
                 changename(line[number])
@@ -133,7 +128,6 @@ class Loading : AppCompatActivity(), DBWrapper.DbInteraction {
         }
         catch (e: Exception){
             Log.d("Librorum", e.toString())
-
             startActivity(Intent(this@Loading, Loading::class.java))
         }
     }

@@ -9,7 +9,7 @@
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Loading"
+    tools:context=".activities.Loading"
     tools:layout_editor_absoluteY="25dp">
 
     <Button
@@ -25,7 +25,7 @@
         android:text="Пропустить"
         android:shadowColor="@color/colorPrimary"
         android:textColor="@color/colorAccent"
-        android:textSize="10sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

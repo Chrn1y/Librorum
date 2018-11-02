@@ -1,4 +1,4 @@
-package com.dev.librorum.Utils
+package com.dev.librorum.utils
 
 const val EXTRA_ID = "bookID"
 var WIDTH = 0

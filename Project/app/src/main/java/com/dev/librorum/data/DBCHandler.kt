@@ -1,7 +1,6 @@
 package com.dev.librorum.data
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
@@ -9,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.database.sqlite.SQLiteQueryBuilder
 import android.util.Log
 import com.dev.librorum.R
-import org.jetbrains.anko.runOnUiThread
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
@@ -111,7 +109,7 @@ class DBCWrapper private constructor() {
                 }
 
             }
-            Log.d("Librorum", "Successfully loaded db")
+            Log.d("Librorum", "Successfully loaded dbс")
         }
     }
 
